@@ -140,7 +140,7 @@ const readFiles = (directory) => {
 /**
  * Checks the user input and if file/directory are valid, reads the file(s)
  * @param {string} input => path to a file/directory
- * @return => returns true if the input is valid (file/directory exist, file is of type .txt)
+ * @return {boolean} => returns true if the input is valid (file/directory exist, file is of type .txt)
  */
 const checkInput = (input) => {
     if (fs.existsSync(input)) {
@@ -160,7 +160,7 @@ const checkInput = (input) => {
 /**
  * Sets the output directory
  * @param {string} output => sets global directory to user input or 'dist' if no user input
- * @return => returns true if the custom output directory is valid
+ * @return {boolean} => returns true if the custom output directory is valid
  */
 const getCustomOutput = (output) => {
     if (output) {

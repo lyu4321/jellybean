@@ -10,6 +10,10 @@ let currentStylesheet = 'style.css';
 let filesArray = [];
 let title = '';
 
+/**
+ * Checks to see if a directory exists and if it does, remove it, then create the directory
+ * @param {string} directory => path to the directory
+ */
 const createDirectory = (directory) => {
     currentDirectory = directory;
     if (fs.existsSync(directory)) {
@@ -18,10 +22,23 @@ const createDirectory = (directory) => {
     mkdirSync(directory);
 }
 
+/**
+ * Parses a path to get the filename
+ * @param {string} path => the path to be parsed
+ * @return {string} => returns the filename
+ */
 const getFilename = (string) => {
     return path.parse(path.basename(string)).name;
 }
 
+/**
+ * Creates a layout, replacing placeholders with user input
+ * @param {string} layout => layout string
+ * @param {string} nav => replaces placeholder in layout
+ * @param {string} title => replaces placeholder in layout
+ * @param {string} body => replaces placeholder in layout
+ * @return {string} => returns the layout
+ */
 const getLayout = (layout, nav, title, body) => {
     return layout
         .replace(/{stylesheet}/g, currentStylesheet)
@@ -30,6 +47,11 @@ const getLayout = (layout, nav, title, body) => {
         .replace(/{body}/g, body)
 }
 
+/**
+ * Creates a nav, replacing placeholder with user input
+ * @param {array} files => array of file paths
+ * @return {string} => returns a string containing the html for navigation links
+ */
 const getNav = (files) => {
     if (!Array.isArray(files)) {
         return '';
@@ -44,6 +66,11 @@ const getNav = (files) => {
     }
 }
 
+/**
+ * Creates the body of the page, replacing placeholder with user input
+ * @param {string} file => the file text to be used in the body
+ * @return {string} => returns a string containing the html for the body 
+ */
 const getHtml = (file) => {
     let tempTitle = file.match(/^.+(\r?\n\r?\n\r?\n)/);
     if (tempTitle) {
@@ -61,6 +88,10 @@ const getHtml = (file) => {
         .join('');
 }
 
+/**
+ * Reads a single file and outputs the contents to a .html file in the output directory
+ * @param {string} file => the .txt file to be read
+ */
 const readFile = (file) => {
     fs.readFile(file, 'utf8', (err, f) => {
         if (err) {
@@ -88,6 +119,10 @@ const readFile = (file) => {
     })
 }
 
+/**
+ * Reads a directory to find all .txt files and performs readFile() on each .txt file
+ * @param {string} directory => path to the directory
+ */
 const readFiles = (directory) => {
     fs.readdir(directory, (err, files) => {
         if (err) {
@@ -102,6 +137,11 @@ const readFiles = (directory) => {
     });
 }
 
+/**
+ * Checks the user input and if file/directory are valid, reads the file(s)
+ * @param {string} input => path to a file/directory
+ * @return => returns true if the input is valid (file/directory exist, file is of type .txt)
+ */
 const checkInput = (input) => {
     if (fs.existsSync(input)) {
         if (fs.statSync(input).isFile()) {
@@ -117,6 +157,11 @@ const checkInput = (input) => {
     return false;
 }
 
+/**
+ * Sets the output directory
+ * @param {string} output => sets global directory to user input or 'dist' if no user input
+ * @return => returns true if the custom output directory is valid
+ */
 const getCustomOutput = (output) => {
     if (output) {
         if (fs.existsSync(output)) {
@@ -130,30 +175,39 @@ const getCustomOutput = (output) => {
     }
 }
 
+/**
+ * Sets the stylesheet 
+ * @param {string} stylesheet => set global stylesheet to user input or 'style.css' if no user input
+ */
 const getCustomStylesheet = (stylesheet) => {
     if (stylesheet) {
         currentStylesheet = stylesheet;
     } else {
         currentStylesheet = 'style.css'
     }
-    return true;
 }
 
+/**
+ * Checks the user input 
+ * @param {string} input => path to a file or directory
+ * @param {string} output => path to an output directory
+ * @param {string} stylesheet => stylesheet url
+ * @return {boolean} => returns true if the user input is valid (valid input and output directory) 
+ */
 const getUserInput = (input, output, stylesheet) => {
     if (!input || !checkInput(input)) {
         return false;
     }
-    if (getCustomOutput(output)) {
-    } else {
+    if (!getCustomOutput(output)) {
         return false;
     }
-    if (getCustomStylesheet(stylesheet)) {
-    } else {
-        return false;
-    }
+    getCustomStylesheet(stylesheet);
     return true;
 }
 
+/**
+ * Gets the user input from the command line and checks the input, printing an error message if the input is invalid
+ */
 const main = () => {
     const argv = yargs(hideBin(process.argv))
         .help('h')

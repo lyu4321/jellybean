@@ -53,6 +53,7 @@ const getLayout = (layout, nav, title, body) => {
  * @return {string} => returns a string containing the html for navigation links
  */
 const getNav = (files) => {
+    console.log(files);
     if (!Array.isArray(files)) {
         return '';
     } else {
@@ -128,9 +129,9 @@ const readFiles = (directory) => {
         if (err) {
             console.log(err);
         }
-        filesArray = files;
         files.forEach(file => {
-            if (fs.existsSync(`${directory}/${file}`) && file.lastIndexOf('.txt') != -1) {
+            if (fs.existsSync(`${directory}/${file}`) && path.extname(file) == '.txt') {
+                filesArray.push(file);
                 readFile(`${directory}/${file}`);
             }
         })

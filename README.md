@@ -1,6 +1,6 @@
 # Jellybean
 
-Jellybean is a static site generator created using Node.js that converts .txt files into html files.
+From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.
 
 # Installation
 
@@ -76,7 +76,7 @@ customoutput/The Adventure of the Six Napoleans.html
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css">
     <meta charset="utf-8">
-    <title>Silver Blaze</title>
+    <title>The Adventure of the Six Napoleans</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 

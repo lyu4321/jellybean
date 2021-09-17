@@ -53,7 +53,6 @@ const getLayout = (layout, nav, title, body) => {
  * @return {string} => returns a string containing the html for navigation links
  */
 const getNav = (files) => {
-    console.log(files);
     if (!Array.isArray(files)) {
         return '';
     } else {

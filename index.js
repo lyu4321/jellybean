@@ -18,6 +18,14 @@ const createDirectory = (directory) => {
 }
 
 /**
+ * Reads the layout.html file contents
+ * @return {string} => returns the file contents as a string
+ */
+const getLayout = () => {
+    return fs.readFileSync('layout.html', 'utf8');
+}
+
+/**
  * Creates a layout, replacing placeholders with user input
  * @param {string} layout => layout string
  * @param {string} stylesheet => replaces {stylesheet} placeholder in layout
@@ -26,7 +34,7 @@ const createDirectory = (directory) => {
  * @param {string} body => replaces {body} placeholder in layout
  * @return {string} => returns the layout as a string
  */
-const getLayout = (layout, stylesheet, title, nav, body) => {
+const getUpdatedLayout = (layout, stylesheet, title, nav, body) => {
     return layout
         .replace(/{stylesheet}/g, stylesheet)
         .replace(/{title}/g, title)
@@ -36,20 +44,21 @@ const getLayout = (layout, stylesheet, title, nav, body) => {
 
 /**
  * Creates the nav of a page based on the files in a directory
- * @param {array} files => array of file paths
+ * @param {array} files => a single file path or array of file paths
  * @return {string} => returns a string of the html used to create the navigation
  */
 const getNav = (files) => {
+    let index = `<li><a href='./index.html'>Home</a></li>`;
     if (!Array.isArray(files)) {
-        return '';
+        let filename = path.parse(path.basename(files)).name;
+        return `<div><ul>${index}<li><a href='./${filename}.html'>${filename}</a></li></ul></div>`;
     } else {
         let links = files.map(file => {
             let filename = path.parse(path.basename(file)).name;
-            let name = filename[0].toUpperCase() + filename.slice(1).toLowerCase();
-            return `<li><a href='./${filename}.html'>${name}</a></li>`;
+            return `<li><a href='./${filename}.html'>${filename}</a></li>`;
         })
             .join(' ');
-        return `<div><ul>${links}</ul></div>`;
+        return `<div><ul>${index}${links}</ul></div>`;
     }
 }
 
@@ -92,11 +101,11 @@ const readFile = (file, directory, stylesheet, files) => {
         if (err) {
             console.log(err);
         }
-        const nav = getNav(files);
+        const nav = getNav(files || file);
         const html = getHtml(f);
         const filename = path.parse(path.basename(file)).name;
-        let layout = fs.readFileSync('layout.html', 'utf8');
-        let updatedLayout = getLayout(layout, stylesheet, html.title, nav, html.body);
+        let layout = getLayout();
+        let updatedLayout = getUpdatedLayout(layout, stylesheet, html.title, nav, html.body);
         fs.writeFile(`${directory}/${filename}.html`, updatedLayout, 'utf8', (err) => {
             if (err) {
                 console.log(err);
@@ -109,6 +118,24 @@ const readFile = (file, directory, stylesheet, files) => {
                     console.log(err);
                 }
             })
+        }
+    })
+}
+
+/**
+ * Creates an index.html page for the generated site
+ * @param {string} output => path to output directory
+ * @param {string} stylesheet => path/url to stylesheet
+ * @param {array} files => array of file paths
+ * @return {boolean} => returns true if the user input is valid (valid input and output directory) 
+ */
+const writeIndexPage = (output, stylesheet, files) => {
+    let layout = getLayout();
+    let nav = getNav(files);
+    let updatedLayout = getUpdatedLayout(layout, stylesheet, 'Home', nav, '');
+    fs.writeFile(`${output}/index.html`, updatedLayout, 'utf8', (err) => {
+        if (err) {
+            console.log(err);
         }
     })
 }
@@ -141,6 +168,7 @@ const getUserInput = (input, output, stylesheet) => {
     } else {
         if (fs.statSync(input).isFile() && path.extname(input) == '.txt') {
             createDirectory(output);
+            writeIndexPage(output, stylesheet, input);
             readFile(input, output, stylesheet);
         } else if (fs.statSync(input).isDirectory()) {
             fs.readdir(input, (err, files) => {
@@ -149,6 +177,7 @@ const getUserInput = (input, output, stylesheet) => {
                 }
                 createDirectory(output);
                 filesArray = files.filter(f => path.extname(f) == '.txt');
+                writeIndexPage(output, stylesheet, filesArray);
                 filesArray.forEach(file => {
                     if (fs.existsSync(`${input}/${file}`)) {
                         readFile(`${input}/${file}`, output, stylesheet, filesArray);
@@ -195,5 +224,3 @@ const main = () => {
 }
 
 main();
-
-

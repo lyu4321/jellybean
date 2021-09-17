@@ -2,6 +2,12 @@
 
 From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.
 
+# Main Features
+
+1. A single .txt file or folder containing multiple files can be converted into HTML pages. 
+2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
+3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below). 
+
 # Installation
 
 1. Clone this repository
@@ -23,12 +29,10 @@ node index.js -i <folder>
 
 # Optional Flags
 
-```diff
-node index.js --output <folder>
-node index.js -o <folder>
-node index.js --stylesheet <URL>
-node index.js -s <URL>
-```
+| Flag  | Description |
+| ------------- | ------------- |
+| `--output/-o <folder>` | Path to an output directory where generated pages will be stored  |
+| `--stylesheet/-s <URL>`  | Stylesheet URL to be used to style the generated pages  |
 
 # Getting Help
 
@@ -108,16 +112,18 @@ customoutput/The Adventure of the Six Napoleans.html
 # Example Using a Folder
 
 ```diff
-node index.js -i Sherlock-Holmes-Selected-Stories -o customoutput -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css
+node index.js -i Sherlock-Holmes-Selected-Stories
 ```
 
 In the Sherlock-Holmes-Selected-Stories folder, if you have the files:<br/>
-* index.js
+* notatextfile.js
 * Silver Blaze.txt
 * The Adventure of the Six Napoleans.txt<br/>
 
-In the customoutput folder, the following files will be generated:<br/>
+In the dist folder, the following files will be generated:<br/>
+* index.html
 * Silver Blaze.html
+* style.css
 * The Adventure of the Six Napoleons.html
 
 # Live Demo

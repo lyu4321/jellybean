@@ -220,7 +220,7 @@ const main = () => {
             alias: 'i',
             demandOption: true,
             describe: 'A .txt file or folder with .txt files to be generated into a static site',
-            type: 'string'
+            type: 'array'
         })
         .option('output', {
             alias: 'o',
@@ -233,7 +233,7 @@ const main = () => {
             type: 'string'
         })
         .argv
-    let check = getUserInput(argv.input, argv.output, argv.stylesheet);
+    let check = getUserInput(argv.input.join(' '), argv.output, argv.stylesheet);
     if (!check) {
         console.log('Invalid option entered. Please see --help for options.');
     }

@@ -81,6 +81,12 @@ customoutput/The Adventure of the Six Napoleans.html
 </head>
 
 <body>
+    <div>
+        <ul>
+            <li><a href='./index.html'>Home</a></li>
+            <li><a href='./The Adventure of the Six Napoleans.html'>The Adventure of the Six Napoleans</a></li>
+        </ul>
+    </div>
     <h1>The Adventure of the Six Napoleans</h1>
     <p> 
         It was no very unusual thing for Mr. Lestrade, of Scotland Yard,

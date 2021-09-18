@@ -80,7 +80,7 @@ customoutput/The Adventure of the Six Napoleans.html
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css">
     <meta charset="utf-8">
-    <title>The Adventure of the Six Napoleans</title>
+    <title>THE ADVENTURE OF THE SIX NAPOLEONS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -91,7 +91,7 @@ customoutput/The Adventure of the Six Napoleans.html
             <li><a href='./The Adventure of the Six Napoleans.html'>The Adventure of the Six Napoleans</a></li>
         </ul>
     </div>
-    <h1>The Adventure of the Six Napoleans</h1>
+    <h1>THE ADVENTURE OF THE SIX NAPOLEONS</h1>
     <p> 
         It was no very unusual thing for Mr. Lestrade, of Scotland Yard,
         to look in upon us of an evening, and his visits were welcome to

@@ -43,7 +43,7 @@ const getUpdatedLayout = (layout, stylesheet, title, nav, body) => {
 }
 
 /**
- * Creates the nav of a page based on the files in a directory
+ * Creates the nav of a page based on a file or files in a directory
  * @param {array} files => a single file path or array of file paths
  * @return {string} => returns a string of the html used to create the navigation
  */
@@ -126,8 +126,7 @@ const readFile = (file, directory, stylesheet, files) => {
  * Creates an index.html page for the generated site
  * @param {string} output => path to output directory
  * @param {string} stylesheet => path/url to stylesheet
- * @param {array} files => array of file paths
- * @return {boolean} => returns true if the user input is valid (valid input and output directory) 
+ * @param {array} files => array of all .txt files in a directory
  */
 const writeIndexPage = (output, stylesheet, files) => {
     let layout = getLayout();
@@ -176,8 +175,8 @@ const getUserInput = (input, output, stylesheet) => {
                     console.log(err);
                 }
                 createDirectory(output);
-                filesArray = files.filter(f => path.extname(f) == '.txt');
                 writeIndexPage(output, stylesheet, filesArray);
+                filesArray = files.filter(f => path.extname(f) == '.txt');
                 filesArray.forEach(file => {
                     if (fs.existsSync(`${input}/${file}`)) {
                         readFile(`${input}/${file}`, output, stylesheet, filesArray);

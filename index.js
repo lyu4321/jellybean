@@ -221,7 +221,7 @@ const main = () => {
         .argv;
     let check = getUserInput(argv.input.join(' '), argv.output, argv.stylesheet);
     if (!check) {
-        console.log('Invalid argument entered. Please see --help for options.');
+        console.error('Invalid argument entered. Please see --help for options.');
     }
 }
 

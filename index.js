@@ -97,7 +97,8 @@ const getHtml = (file) => {
 const readFile = (file, directory, stylesheet, files) => {
     fs.readFile(file, 'utf8', (err, f) => {
         if (err) {
-            console.log(err);
+            console.error(`The file ${file} could not be read`);
+            process.exit(-1);
         }
         const nav = getNav(files || file);
         const html = getHtml(f);
@@ -106,14 +107,16 @@ const readFile = (file, directory, stylesheet, files) => {
         let updatedLayout = getUpdatedLayout(layout, stylesheet, html.title, nav, html.body);
         fs.writeFile(`${directory}/${filename}.html`, updatedLayout, 'utf8', (err) => {
             if (err) {
-                console.log(err);
+                console.error(`The file ${directory}/${filename}.html could not be created`);
+                process.exit(-1);
             }
         })
         if (stylesheet == 'style.css') {
             let style = fs.readFileSync(stylesheet, 'utf8');
             fs.writeFile(`${directory}/${stylesheet}`, style, 'utf8', (err) => {
                 if (err) {
-                    console.log(err);
+                    console.error(`The file ${directory}/${stylesheet} could not be created`);
+                    process.exit(-1);
                 }
             })
         }
@@ -132,7 +135,8 @@ const writeIndexPage = (output, stylesheet, files) => {
     let updatedLayout = getUpdatedLayout(layout, stylesheet, 'Home', nav, '');
     fs.writeFile(`${output}/index.html`, updatedLayout, 'utf8', (err) => {
         if (err) {
-            console.log(err);
+            console.error(`The file ${output}/index.html could not be created`);
+            process.exit(-1);
         }
     })
 }
@@ -170,7 +174,8 @@ const getUserInput = (input, output, stylesheet) => {
         } else if (fs.statSync(input).isDirectory()) {
             fs.readdir(input, (err, files) => {
                 if (err) {
-                    console.log(err);
+                    console.error(`The directory ${input} could not be read`);
+                    process.exit(-1);
                 }
                 createDirectory(output);
                 writeIndexPage(output, stylesheet, filesArray);

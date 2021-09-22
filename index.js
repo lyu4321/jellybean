@@ -1,9 +1,7 @@
-import fs, { mkdirSync } from 'fs';
-import path from 'path';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+const fs = require('fs');
+const path = require('path');
+const yargs = require('yargs');
+const { hideBin } = require('yargs/helpers');
 const pkg = require('./package.json');
 
 /**
@@ -14,7 +12,7 @@ const createDirectory = (directory) => {
     if (fs.existsSync(directory)) {
         fs.rmdirSync(directory, { recursive: true });
     }
-    mkdirSync(directory);
+    fs.mkdirSync(directory);
 }
 
 /**

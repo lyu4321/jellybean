@@ -134,7 +134,7 @@ For markdown files (.md), the program will parse markdown to HTML tags.
 | --------------- | --------------------- | ------------------- |
 | `# H1 Heading`  | `<h1>H1 Heading</h1>` | <h1>H1 Heading</h1> |
 | `## H2 Heading` | `<h2>H2 Heading</h2>` | <h2>H2 Heading</h2> |
-| `## H3 Heading` | `<h3>H3 Heading</h3>` | <h2>H3Heading</h2>  |
+| `### H3 Heading` | `<h3>H3 Heading</h3>` | <h2>H3Heading</h2>  |
 
 # Example Using a Markdown File
 
@@ -146,13 +146,13 @@ README.md
 
 From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.
 
-# Main Features
+## Main Features
 
 1. A single .txt file or folder containing multiple files can be converted into HTML pages.
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
 3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).
 
-# Installation
+### Installation
 
 1. Clone this repository
 2. Download [Node.js](https://nodejs.org/en/)
@@ -179,10 +179,10 @@ README.html
     <h1></h1>
     <h1>Jellybean</h1>
 <p>From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.</p>
-<h1>Main Features</h1>
+<h2>Main Features</h2>
 <p>1. A single .txt file or folder containing multiple files can be converted into HTML pages. 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
 3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).</p>
-<h1>Installation</h1>
+<h3>Installation</h3>
 <p>1. Clone this repository 2. Download [Node.js](https://nodejs.org/en/)
 3. Run the following commands</p>
 

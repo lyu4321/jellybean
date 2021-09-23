@@ -1,10 +1,10 @@
-import fs from "fs";
-import path from "path";
-import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
-import { createRequire } from "module";
+import fs from 'fs';
+import path from 'path';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const pkg = require("./package.json");
+const pkg = require('./package.json');
 
 /**
  * Checks to see if an output directory exists and if it does, remove it, then create the directory
@@ -204,7 +204,7 @@ const getUserInput = (input, output, stylesheet) => {
     if (!input || !fs.existsSync(input)) {
         return false;
     } else {
-        if (fs.statSync(input).isFile() && (path.extname(input) == ".txt" || path.extname(input) == ".md")) {
+        if (fs.statSync(input).isFile() && (path.extname(input) == '.txt' || path.extname(input) == '.md')) {
             createDirectory(output);
             writeIndexPage(output, stylesheet, input);
             readFile(input, output, stylesheet);
@@ -216,7 +216,7 @@ const getUserInput = (input, output, stylesheet) => {
                 }
                 createDirectory(output);
                 writeIndexPage(output, stylesheet, filesArray);
-                filesArray = files.filter(f => path.extname(f) == '.txt' || path.extname(f) == ".md");
+                filesArray = files.filter(f => path.extname(f) == '.txt' || path.extname(f) == '.md');
                 filesArray.forEach(file => {
                     if (fs.existsSync(`${input}/${file}`)) {
                         readFile(`${input}/${file}`, output, stylesheet, filesArray);

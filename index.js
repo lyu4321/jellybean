@@ -1,10 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+const fs = require('fs');
+const path = require('path');
+const yargs = require('yargs');
+const { hideBin } = require('yargs/helpers');
 const pkg = require('./package.json');
+
 
 /**
  * Checks to see if an output directory exists and if it does, remove it, then create the directory

@@ -2,17 +2,12 @@
   "name": "jellybean",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Leyang Yu",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
-    "fs": "0.0.1-security",
-    "path": "^0.12.7",
-    "yargs": "^17.1.1",
-    "yarn": "^1.22.11"
+    "yargs": "^17.1.1"
   }
 }

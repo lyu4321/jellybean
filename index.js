@@ -4,6 +4,7 @@ const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
 const pkg = require('./package.json');
 
+
 /**
  * Checks to see if an output directory exists and if it does, remove it, then create the directory
  * @param {string} directory => path to the directory
@@ -61,11 +62,11 @@ const getNav = (files) => {
 }
 
 /**
- * Creates the title and body of a page from the contents of a .txt file
+ * Creates the title and body of a page from the contents of a .txt file and .md files
  * @param {string} file => the file text 
  * @return {string} => returns an object containing the string for the title and string for the body 
  */
-const getHtml = (file) => {
+const getHtml = (file , isTxt) => {
     let html = {
         title: '',
         body: ''
@@ -74,6 +75,8 @@ const getHtml = (file) => {
     if (tempTitle) {
         html.title = tempTitle[0].trim();
     }
+
+    if(isTxt){
     html.body = file
         .split(/\r?\n\r?\n/)
         .map(para => {
@@ -84,6 +87,26 @@ const getHtml = (file) => {
             }
         })
         .join('');
+     return html;
+    }
+    
+    html.body = file
+    .split(/\r?\n\r?\n/)
+    .map((para) => {
+      if (para == html.title) {
+        `<h1>${para.replace(/\r?\n/, " ")}</h1>\n`;
+      } else {
+        let string = para
+                  .replace(/^\s*#{1} (.*$)/, "<h1>$1</h1>")
+                  .replace(/^\s*#{2} (.*$)/, "<h2>$1</h2>")
+                  .replace(/^\s*#{3} (.*$)/, "<h3>$1</h3>");
+        
+                return string.startsWith("<h")
+                  ? string + "\n"
+                  : `<p>${string.replace(/\r?\n/, " ")}</p>\n`;
+      }
+    })
+    .join('');
     return html;
 }
 
@@ -92,7 +115,7 @@ const getHtml = (file) => {
  * @param {string} file => path to file
  * @param {string} directory => path to output directory
  * @param {string} stylesheet => path/URL to stylesheet
- * @param {string} files => array of all .txt files in a directory
+ * @param {string} files => array of all .txt or .md files in a directory
  */
 const readFile = (file, directory, stylesheet, files) => {
     fs.readFile(file, 'utf8', (err, f) => {
@@ -101,7 +124,7 @@ const readFile = (file, directory, stylesheet, files) => {
             process.exit(-1);
         }
         const nav = getNav(files || file);
-        const html = getHtml(f);
+        const html =  getHtml(f, path.extname(file) == '.txt');
         const filename = path.parse(path.basename(file)).name;
         let layout = getLayout();
         let updatedLayout = getUpdatedLayout(layout, stylesheet, html.title, nav, html.body);
@@ -167,7 +190,7 @@ const getUserInput = (input, output, stylesheet) => {
     if (!input || !fs.existsSync(input)) {
         return false;
     } else {
-        if (fs.statSync(input).isFile() && path.extname(input) == '.txt') {
+        if (fs.statSync(input).isFile() && (path.extname(input) == '.txt' || path.extname(input) == '.md')) {
             createDirectory(output);
             writeIndexPage(output, stylesheet, input);
             readFile(input, output, stylesheet);
@@ -179,7 +202,7 @@ const getUserInput = (input, output, stylesheet) => {
                 }
                 createDirectory(output);
                 writeIndexPage(output, stylesheet, filesArray);
-                filesArray = files.filter(f => path.extname(f) == '.txt');
+                filesArray = files.filter(f => path.extname(f) == '.txt' || path.extname(f) == '.md');
                 filesArray.forEach(file => {
                     if (fs.existsSync(`${input}/${file}`)) {
                         readFile(`${input}/${file}`, output, stylesheet, filesArray);

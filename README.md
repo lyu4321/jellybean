@@ -126,6 +126,72 @@ In the dist folder, the following files will be generated:<br/>
 * style.css
 * The Adventure of the Six Napoleons.html
 
+# Additional support for md (markdown) files
+
+For markdown files (.md), the program will parse markdown to HTML tags.
+
+| MD File         | HTML File             | Webpage             |
+| --------------- | --------------------- | ------------------- |
+| `# H1 Heading`  | `<h1>H1 Heading</h1>` | <h1>H1 Heading</h1> |
+| `## H2 Heading` | `<h2>H2 Heading</h2>` | <h2>H2 Heading</h2> |
+| `### H3 Heading` | `<h3>H3 Heading</h3>` | <h3>H3 Heading</h3>  |
+
+# Example Using a Markdown File
+
+Original File:<br/>
+README.md
+
+```
+# Jellybean
+
+From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.
+
+## Main Features
+
+1. A single .txt file or folder containing multiple files can be converted into HTML pages.
+2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
+3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).
+
+### Installation
+
+1. Clone this repository
+2. Download [Node.js](https://nodejs.org/en/)
+3. Run the following commands
+
+```
+
+Generated File:<br/>
+README.html
+
+```
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div><ul><li><a href='./index.html'>Home</a></li><li><a href='./README.html'>README</a></li></ul></div>
+    <h1></h1>
+    <h1>Jellybean</h1>
+<p>From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.</p>
+<h2>Main Features</h2>
+<p>1. A single .txt file or folder containing multiple files can be converted into HTML pages. 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
+3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).</p>
+<h3>Installation</h3>
+<p>1. Clone this repository 2. Download [Node.js](https://nodejs.org/en/)
+3. Run the following commands</p>
+
+</body>
+
+</html>
+```
+
+
 # Live Demo
 
 [https://lyu4321.github.io/jellybean](https://lyu4321.github.io/jellybean)

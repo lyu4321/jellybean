@@ -4,7 +4,7 @@ From one small program, you can create an entire website. Jellybean is a static 
 
 # Main Features
 
-1. A single .txt file or folder containing multiple files can be converted into HTML pages. 
+1. A single text file or folder containing text files can be converted into HTML pages. 
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
 3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below). 
 
@@ -20,12 +20,19 @@ npm install
 
 # Running the Program
 
+Specify path to an existing text (.txt) file 
 ```diff
 node index.js --input <file>
-node index.js --input <folder>
 node index.js -i <file>
+```
+
+Specify path to an existing folder containing text files
+```diff
+node index.js --input <folder>
 node index.js -i <folder>
 ```
+
+The --input/-i flag is required, followed by a path to an existing text file or folder containing text files. The contents of each file will be converted into an HTML file with the same name and placed into the specified output directory or the 'dist' directory if no output directory is specified. If a folder contains non-text files, these will not be converted into HTML. 
 
 # Optional Flags
 
@@ -73,7 +80,7 @@ his own vast knowledge and experience.
 
 Generated File:<br/>
 customoutput/The Adventure of the Six Napoleans.html
-```
+```html
 <!doctype html>
 <html lang="en">
 
@@ -126,7 +133,7 @@ In the dist folder, the following files will be generated:<br/>
 * style.css
 * The Adventure of the Six Napoleons.html
 
-# Additional support for md (markdown) files
+# Additional Support for Markdown Files
 
 For markdown files (.md), the program will parse markdown to HTML tags.
 
@@ -148,7 +155,7 @@ From one small program, you can create an entire website. Jellybean is a static 
 
 ## Main Features
 
-1. A single .txt file or folder containing multiple files can be converted into HTML pages.
+1. A single text file or folder containing text files can be converted into HTML pages.
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
 3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).
 
@@ -163,7 +170,7 @@ From one small program, you can create an entire website. Jellybean is a static 
 Generated File:<br/>
 README.html
 
-```
+```html
 <!doctype html>
 <html lang="en">
 
@@ -190,7 +197,6 @@ README.html
 
 </html>
 ```
-
 
 # Live Demo
 

@@ -71,6 +71,7 @@ const getHtml = (file, isTxt) => {
         title: '',
         body: ''
     }
+
     let tempTitle = file.match(/^.+(\r?\n\r?\n\r?\n)/);
     if (tempTitle) {
         html.title = tempTitle[0].trim();

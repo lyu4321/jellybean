@@ -1,12 +1,13 @@
 # Jellybean
 
-From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.
+From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.
 
 # Main Features
 
-1. A single .txt file or folder containing multiple files can be converted into HTML pages. 
+1. A single text/markdown file or folder containing multiple files can be converted into HTML files. 
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
-3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below). 
+3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using [optional flags](https://github.com/lyu4321/jellybean#optional-flags).
+4. Markdown files will be parsed for [markdown syntax](https://github.com/lyu4321/jellybean#additional-support-for-md-markdown-files) in order to generate the proper HTML. 
 
 # Installation
 
@@ -20,12 +21,19 @@ npm install
 
 # Running the Program
 
+Path to an existing text/markdown file
 ```diff
 node index.js --input <file>
-node index.js --input <folder>
 node index.js -i <file>
+```
+
+Path to an existing folder containing multiple files
+```diff
+node index.js --input <folder>
 node index.js -i <folder>
 ```
+
+The --input/-i flag is required, followed by a path to either an existing text/markdown file or folder containing multiple files. The contents of each file will be converted into an HTML file with the same name and stored in the output directory specified or in the 'dist' directory if no output directory is specified. If a folder contains non-text/markdown files, these files will not be converted into HTML. 
 
 # Optional Flags
 
@@ -73,7 +81,7 @@ his own vast knowledge and experience.
 
 Generated File:<br/>
 customoutput/The Adventure of the Six Napoleans.html
-```
+```html
 <!doctype html>
 <html lang="en">
 
@@ -144,11 +152,11 @@ README.md
 ```
 # Jellybean
 
-From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.
+From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.
 
 ## Main Features
 
-1. A single .txt file or folder containing multiple files can be converted into HTML pages.
+1. A single text/markdown file or folder containing multiple files can be converted into HTML files.
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
 3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).
 
@@ -163,7 +171,7 @@ From one small program, you can create an entire website. Jellybean is a static 
 Generated File:<br/>
 README.html
 
-```
+```html
 <!doctype html>
 <html lang="en">
 
@@ -178,9 +186,9 @@ README.html
     <div><ul><li><a href='./index.html'>Home</a></li><li><a href='./README.html'>README</a></li></ul></div>
     <h1></h1>
     <h1>Jellybean</h1>
-<p>From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text files into HTML files.</p>
+<p>From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.</p>
 <h2>Main Features</h2>
-<p>1. A single .txt file or folder containing multiple files can be converted into HTML pages. 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
+<p>1. A single text/markdown file or folder containing multiple files can be converted into HTML files. 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
 3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).</p>
 <h3>Installation</h3>
 <p>1. Clone this repository 2. Download [Node.js](https://nodejs.org/en/)

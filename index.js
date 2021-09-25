@@ -62,51 +62,42 @@ const getNav = (files) => {
 }
 
 /**
- * Creates the title and body of a page from the contents of a .txt file and .md files
+ * Creates the title and body of a page from the contents of a .txt/.md file
  * @param {string} file => the file text 
  * @return {string} => returns an object containing the string for the title and string for the body 
  */
-const getHtml = (file , isTxt) => {
+const getHtml = (file, isTxt) => {
     let html = {
         title: '',
         body: ''
     }
+
     let tempTitle = file.match(/^.+(\r?\n\r?\n\r?\n)/);
     if (tempTitle) {
         html.title = tempTitle[0].trim();
     }
 
-    if(isTxt){
     html.body = file
         .split(/\r?\n\r?\n/)
-        .map(para => {
+        .map((para) => {
             if (para == html.title) {
-                `<h1>${para.replace(/\r?\n/, ' ')}</h1>\n`
+                `<h1>${para.replace(/\r?\n/, " ")}</h1>\n`;
             } else {
-                return `<p>${para.replace(/\r?\n/, ' ')}</p>\n`;
+                if (isTxt) {
+                    return `<p>${para.replace(/\r?\n/, ' ')}</p>\n`;
+                } else {
+                    let string = para
+                        .replace(/^\s*#{1} (.*$)/, "<h1>$1</h1>")
+                        .replace(/^\s*#{2} (.*$)/, "<h2>$1</h2>")
+                        .replace(/^\s*#{3} (.*$)/, "<h3>$1</h3>");
+
+                    return string.startsWith("<h")
+                        ? string + "\n"
+                        : `<p>${string.replace(/\r?\n/, " ")}</p>\n`;
+                }
             }
         })
         .join('');
-     return html;
-    }
-    
-    html.body = file
-    .split(/\r?\n\r?\n/)
-    .map((para) => {
-      if (para == html.title) {
-        `<h1>${para.replace(/\r?\n/, " ")}</h1>\n`;
-      } else {
-        let string = para
-                  .replace(/^\s*#{1} (.*$)/, "<h1>$1</h1>")
-                  .replace(/^\s*#{2} (.*$)/, "<h2>$1</h2>")
-                  .replace(/^\s*#{3} (.*$)/, "<h3>$1</h3>");
-        
-                return string.startsWith("<h")
-                  ? string + "\n"
-                  : `<p>${string.replace(/\r?\n/, " ")}</p>\n`;
-      }
-    })
-    .join('');
     return html;
 }
 
@@ -124,7 +115,7 @@ const readFile = (file, directory, stylesheet, files) => {
             process.exit(-1);
         }
         const nav = getNav(files || file);
-        const html =  getHtml(f, path.extname(file) == '.txt');
+        const html = getHtml(f, path.extname(file) == '.txt');
         const filename = path.parse(path.basename(file)).name;
         let layout = getLayout();
         let updatedLayout = getUpdatedLayout(layout, stylesheet, html.title, nav, html.body);
@@ -150,7 +141,7 @@ const readFile = (file, directory, stylesheet, files) => {
  * Creates an index.html page for the generated site
  * @param {string} output => path to output directory
  * @param {string} stylesheet => path/url to stylesheet
- * @param {array} files => array of all .txt files in a directory
+ * @param {array} files => array of all .txt/.md files in a directory
  */
 const writeIndexPage = (output, stylesheet, files) => {
     let layout = getLayout();

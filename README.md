@@ -134,7 +134,7 @@ In the dist folder, the following files will be generated:<br/>
 * style.css
 * The Adventure of the Six Napoleons.html
 
-# Additional support for md (markdown) files
+# Additional Support for Markdown Files
 
 For markdown files (.md), the program will parse markdown to HTML tags.
 

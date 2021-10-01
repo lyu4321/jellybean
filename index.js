@@ -27,32 +27,33 @@ const getLayout = () => {
 /**
  * Creates a layout, replacing placeholders with user input
  * @param {string} layout => layout string
- * @param {string} stylesheet => replaces {stylesheet} placeholder in layout
+ * @param {object} argv => command line args
  * @param {string} nav => replaces {nav} placeholder in layout
  * @param {string} title => replaces {title} placeholder in layout
  * @param {string} body => replaces {body} placeholder in layout
  * @return {string} => returns the layout as a string
  */
-const getUpdatedLayout = (layout, stylesheet, title, nav, body) => {
+const getUpdatedLayout = (layout, argv, title, nav, body) => {
     return layout
-        .replace(/{stylesheet}/g, stylesheet)
+        .replace(/{stylesheet}/g, argv.stylesheet)
         .replace(/{title}/g, title)
         .replace(/{nav}/g, nav)
         .replace(/{body}/g, body)
+        .replace('en-CA', argv.lang || 'en-CA');
 }
 
 /**
  * Creates the nav of a page based on a file or files in a directory
- * @param {array} files => a single file path or array of file paths
+ * @param {array} input => a single file path or array of file paths
  * @return {string} => returns a string of the html used to create the navigation
  */
-const getNav = (files) => {
+const getNav = (input) => {
     let index = `<li><a href='./index.html'>Home</a></li>`;
-    if (!Array.isArray(files)) {
-        let filename = path.parse(path.basename(files)).name;
+    if (!Array.isArray(input)) {
+        let filename = path.parse(path.basename(input)).name;
         return `<div><ul>${index}<li><a href='./${filename}.html'>${filename}</a></li></ul></div>`;
     } else {
-        let links = files.map(file => {
+        let links = input.map(file => {
             let filename = path.parse(path.basename(file)).name;
             return `<li><a href='./${filename}.html'>${filename}</a></li>`;
         })
@@ -103,12 +104,11 @@ const getHtml = (file, isTxt) => {
 
 /**
  * Reads a single file and outputs the contents to a .html file in the output directory
+ * @param {object} argv => command line args
  * @param {string} file => path to file
- * @param {string} directory => path to output directory
- * @param {string} stylesheet => path/URL to stylesheet
  * @param {string} files => array of all .txt or .md files in a directory
  */
-const readFile = (file, directory, stylesheet, files) => {
+const readFile = (argv, file, files) => {
     fs.readFile(file, 'utf8', (err, f) => {
         if (err) {
             console.error(`The file ${file} could not be read`);
@@ -118,18 +118,18 @@ const readFile = (file, directory, stylesheet, files) => {
         const html = getHtml(f, path.extname(file) == '.txt');
         const filename = path.parse(path.basename(file)).name;
         let layout = getLayout();
-        let updatedLayout = getUpdatedLayout(layout, stylesheet, html.title, nav, html.body);
-        fs.writeFile(`${directory}/${filename}.html`, updatedLayout, 'utf8', (err) => {
+        let updatedLayout = getUpdatedLayout(layout, argv, html.title, nav, html.body);
+        fs.writeFile(`${argv.output}/${filename}.html`, updatedLayout, 'utf8', (err) => {
             if (err) {
-                console.error(`The file ${directory}/${filename}.html could not be created`);
+                console.error(`The file ${argv.output}/${filename}.html could not be created`);
                 process.exit(-1);
             }
         })
-        if (stylesheet == 'style.css') {
-            let style = fs.readFileSync(stylesheet, 'utf8');
-            fs.writeFile(`${directory}/${stylesheet}`, style, 'utf8', (err) => {
+        if (argv.stylesheet == 'style.css') {
+            let style = fs.readFileSync(argv.stylesheet, 'utf8');
+            fs.writeFile(`${argv.output}/${argv.stylesheet}`, style, 'utf8', (err) => {
                 if (err) {
-                    console.error(`The file ${directory}/${stylesheet} could not be created`);
+                    console.error(`The file ${argv.output}/${argv.stylesheet} could not be created`);
                     process.exit(-1);
                 }
             })
@@ -139,17 +139,16 @@ const readFile = (file, directory, stylesheet, files) => {
 
 /**
  * Creates an index.html page for the generated site
- * @param {string} output => path to output directory
- * @param {string} stylesheet => path/url to stylesheet
- * @param {array} files => array of all .txt/.md files in a directory
+ * @param {object} argv => command line args
+ * @param {string, array} input => a single file or array of all .txt or .md files in a directory
  */
-const writeIndexPage = (output, stylesheet, files) => {
+const writeIndexPage = (argv, input) => {
     let layout = getLayout();
-    let nav = getNav(files);
-    let updatedLayout = getUpdatedLayout(layout, stylesheet, 'Home', nav, '');
-    fs.writeFile(`${output}/index.html`, updatedLayout, 'utf8', (err) => {
+    let nav = getNav(input);
+    let updatedLayout = getUpdatedLayout(layout, argv, 'Home', nav, '');
+    fs.writeFile(`${argv.output}/index.html`, updatedLayout, 'utf8', (err) => {
         if (err) {
-            console.error(`The file ${output}/index.html could not be created`);
+            console.error(`The file ${argv.output}/index.html could not be created`);
             process.exit(-1);
         }
     })
@@ -157,46 +156,45 @@ const writeIndexPage = (output, stylesheet, files) => {
 
 /**
  * Checks the user input 
- * @param {string} input => path to a file or directory
- * @param {string} output => path to an output directory
- * @param {string} stylesheet => stylesheet url
+ * @param {object} argv => command line args
  * @return {boolean} => returns true if the user input is valid (valid input and output directory) 
  */
-const getUserInput = (input, output, stylesheet) => {
+const getUserInput = (argv) => {
+    let input = argv.input.join(' ');
     let filesArray = [];
 
     // Setting the output directory
-    if (output) {
-        if (!fs.existsSync(output)) {
+    if (argv.output) {
+        if (!fs.existsSync(argv.output)) {
             return false;
         }
     } else {
-        output = 'dist';
+        argv.output = 'dist';
     }
     // Setting the stylesheet
-    if (!stylesheet) {
-        stylesheet = 'style.css';
+    if (!argv.stylesheet) {
+        argv.stylesheet = 'style.css';
     }
     // Setting the input
     if (!input || !fs.existsSync(input)) {
         return false;
     } else {
         if (fs.statSync(input).isFile() && (path.extname(input) == '.txt' || path.extname(input) == '.md')) {
-            createDirectory(output);
-            writeIndexPage(output, stylesheet, input);
-            readFile(input, output, stylesheet);
+            createDirectory(argv.output);
+            writeIndexPage(argv, input);
+            readFile(argv, input);
         } else if (fs.statSync(input).isDirectory()) {
             fs.readdir(input, (err, files) => {
                 if (err) {
                     console.error(`The directory ${input} could not be read`);
                     process.exit(-1);
                 }
-                createDirectory(output);
-                writeIndexPage(output, stylesheet, filesArray);
                 filesArray = files.filter(f => path.extname(f) == '.txt' || path.extname(f) == '.md');
+                createDirectory(argv.output);
+                writeIndexPage(argv, filesArray);
                 filesArray.forEach(file => {
                     if (fs.existsSync(`${input}/${file}`)) {
-                        readFile(`${input}/${file}`, output, stylesheet, filesArray);
+                        readFile(argv, `${input}/${file}`, fileArray);
                     }
                 })
             });
@@ -219,8 +217,13 @@ const main = () => {
         .options('input', {
             alias: 'i',
             demandOption: true,
-            describe: 'Path to a .txt file or folder with files',
+            describe: 'Path to a file or folder with files',
             type: 'array'
+        })
+        .option('lang', {
+            alias: 'l',
+            describe: 'Language used in generated HTML files',
+            type: 'string'
         })
         .option('output', {
             alias: 'o',
@@ -233,7 +236,7 @@ const main = () => {
             type: 'string'
         })
         .argv;
-    let check = getUserInput(argv.input.join(' '), argv.output, argv.stylesheet);
+    let check = getUserInput(argv);
     if (!check) {
         console.error('Invalid argument entered. Please see --help for options.');
     }

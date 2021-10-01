@@ -143,6 +143,7 @@ For markdown files (.md), the program will parse markdown to HTML tags.
 | `# H1 Heading`  | `<h1>H1 Heading</h1>` | <h1>H1 Heading</h1> |
 | `## H2 Heading` | `<h2>H2 Heading</h2>` | <h2>H2 Heading</h2> |
 | `### H3 Heading` | `<h3>H3 Heading</h3>` | <h3>H3 Heading</h3>  |
+| `    ```Inline code block```    ` | `<code>Inline code block</code>` | <code>Inline code block</code> |
 
 # Example Using a Markdown File
 
@@ -165,6 +166,10 @@ From one small program, you can create an entire website. Jellybean is a static 
 1. Clone this repository
 2. Download [Node.js](https://nodejs.org/en/)
 3. Run the following commands
+
+```cd jellybean```
+
+```npm install```
 
 ```
 
@@ -193,6 +198,8 @@ README.html
 <h3>Installation</h3>
 <p>1. Clone this repository 2. Download [Node.js](https://nodejs.org/en/)
 3. Run the following commands</p>
+<p><code>cd jellybean</code></p>
+<p><code>npm install</code></p>
 
 </body>
 

@@ -91,6 +91,7 @@ const getHtml = (file, isTxt) => {
                         .replace(/^\s*#{2} (.*$)/, '<h2>$1</h2>')
                         .replace(/^\s*#{3} (.*$)/, '<h3>$1</h3>')
                         .replace(/\`{1,}(.*?)\`{1,}/g, '<code>$1</code>')
+                        .replace(/-{3,}/g, '<hr />')
 
                     return string.startsWith('<h')
                         ? string + '\n'

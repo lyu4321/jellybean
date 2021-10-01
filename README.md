@@ -6,7 +6,7 @@ From one small program, you can create an entire website. Jellybean is a static 
 
 1. A single text/markdown file or folder containing multiple files can be converted into HTML files. 
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
-3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using [optional flags](https://github.com/lyu4321/jellybean#optional-flags).
+3. Generated files are stored in the 'dist' folder and style is provided by 'style.css'. The default language is set to 'en-CA'. Custom folders, styles, and languages can be specified using [optional flags](https://github.com/lyu4321/jellybean#optional-flags).
 4. Markdown files will be parsed for [markdown syntax](https://github.com/lyu4321/jellybean#additional-support-for-md-markdown-files) in order to generate the proper HTML. 
 
 # Installation
@@ -41,6 +41,7 @@ The --input/-i flag is required, followed by a path to either an existing text/m
 | ------------- | ------------- |
 | `--output/-o <folder>` | Path to an output directory where generated pages will be stored  |
 | `--stylesheet/-s <URL>`  | Stylesheet URL to be used to style the generated pages  |
+| `--lang <string>` | The lang attribute for the ```<html>``` tag of each page, describes the language of a page, set to 'en-CA' by default |
 
 # Getting Help
 
@@ -59,7 +60,7 @@ node index.js -v
 # Example Using a File
 
 ```diff
-node index.js -i Sherlock-Holmes-Selected-Stories/The Adventure of the Six Napoleans.txt -o customoutput -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css
+node index.js -i Sherlock-Holmes-Selected-Stories/The Adventure of the Six Napoleans.txt -l en-US -o customoutput -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css
 ```
 
 Original File:<br/>
@@ -83,7 +84,7 @@ Generated File:<br/>
 customoutput/The Adventure of the Six Napoleans.html
 ```html
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css">
@@ -186,7 +187,7 @@ README.html
 
 ```html
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
 
 <head>
     <link rel="stylesheet" href="style.css">

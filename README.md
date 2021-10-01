@@ -144,11 +144,8 @@ For markdown files (.md), the program will parse markdown to HTML tags.
 | `# H1 Heading`  | `<h1>H1 Heading</h1>` | <h1>H1 Heading</h1> |
 | `## H2 Heading` | `<h2>H2 Heading</h2>` | <h2>H2 Heading</h2> |
 | `### H3 Heading` | `<h3>H3 Heading</h3>` | <h3>H3 Heading</h3>  |
-<<<<<<< HEAD
 | `---` | `<hr />` | <hr /> |
-=======
 | `    ```Inline code block```    ` | `<code>Inline code block</code>` | <code>Inline code block</code> |
->>>>>>> issue-13
 
 # Example Using a Markdown File
 

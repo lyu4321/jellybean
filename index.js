@@ -196,7 +196,7 @@ const getUserInput = (argv) => {
                 writeIndexPage(argv, filesArray);
                 filesArray.forEach(file => {
                     if (fs.existsSync(`${input}/${file}`)) {
-                        readFile(argv, `${input}/${file}`, fileArray);
+                        readFile(argv, `${input}/${file}`, filesArray);
                     }
                 })
             });

@@ -33,7 +33,9 @@ node index.js --input <folder>
 node index.js -i <folder>
 ```
 
-The --input/-i flag is required, followed by a path to either an existing text/markdown file or folder containing multiple files. The contents of each file will be converted into an HTML file with the same name and stored in the output directory specified or in the 'dist' directory if no output directory is specified. If a folder contains non-text/markdown files, these files will not be converted into HTML. 
+The input path to either an existing text/markdown file or a folder containing multiple files is required. Please specify the input path using the `--input/-i` flag or by adding it as `"input"` in a JSON config file.
+
+The contents of each file will be converted into an HTML file with the same name and stored in the output directory specified or in the 'dist' directory if no output directory is specified. If a folder contains non-text/markdown files, these files will not be converted into HTML. 
 
 # Optional Flags
 
@@ -42,6 +44,24 @@ The --input/-i flag is required, followed by a path to either an existing text/m
 | `--output/-o <folder>` | Path to an output directory where generated pages will be stored  |
 | `--stylesheet/-s <URL>`  | Stylesheet URL to be used to style the generated pages  |
 | `--lang <string>` | The lang attribute for the ```<html>``` tag of each page, describes the language of a page, set to 'en-CA' by default |
+
+ # JSON Config File
+
+ Instead of passing options as flags, a path to a JSON config file can be provided. This JSON file needs to contain at least "input" with the path to the file or folder.
+
+ | Flag  | Description |
+| ------------- | ------------- |
+| `--config/-c <file.json>` | Path to a JSON config file than contains other options |
+
+Example JSON file
+
+```json
+{
+  "input": "Sherlock-Holmes-Selected-Stories",
+  "output": "./web",
+  "stylesheet": "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
+}
+```
 
 # Getting Help
 

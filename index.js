@@ -163,14 +163,14 @@ const writeIndexPage = (argv, input) => {
  * @return {boolean} => returns true if the user input is valid (valid input and output directory) 
  */
 const getUserInput = (argv) => {
-    let input = ""; 
+    let input = ''; 
     let filesArray = [];
 
     if (argv.input) {
         input = argv.input.join(' ');
         // Setting the output directory
         if (argv.output && !fs.existsSync(argv.output)) {
-            console.error("Invalid output argument entered.");
+            console.error('Invalid output argument entered.');
             return false;
         } else {
             argv.output = 'dist';
@@ -182,16 +182,21 @@ const getUserInput = (argv) => {
     }
 
     if(argv.config && fs.existsSync(argv.config)) {
-        // Get options from json file and save them in argv  
-        argv = jsonfile.readFileSync(argv.config, (err) => {
-            if (err) console.error(err);
-        })
-        input = argv.input;
+        if (fs.statSync(argv.config).isFile() && path.extname(input) == '.json') {
+            // Get options from json file and save them in argv  
+            argv = jsonfile.readFileSync(argv.config, (err) => {
+                if (err) console.error(err);
+            })
+            input = argv.input;
+        } else {
+            console.error('Config file needs to be a JSON file');
+            return false;
+        }
     }
 
     // Setting the input
     if (!input || !fs.existsSync(input)) {
-        console.error("Input file or folder is required");
+        console.error('Input file or folder is required');
         return false;
     } else {
         if (fs.statSync(input).isFile() && (path.extname(input) == '.txt' || path.extname(input) == '.md')) {
@@ -231,7 +236,7 @@ const main = () => {
         .alias('v', 'version')
         .option('config', {
             alias: 'c',
-            describe: 'Use a JSON config file',
+            describe: 'Path to a JSON config file',
             type: 'string'
         })
         .options('input', {

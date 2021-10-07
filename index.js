@@ -182,7 +182,7 @@ const getUserInput = (argv) => {
     }
 
     if(argv.config && fs.existsSync(argv.config)) {
-        if (fs.statSync(argv.config).isFile() && path.extname(input) == '.json') {
+        if (fs.statSync(argv.config).isFile() && path.extname(argv.config) == '.json') {
             // Get options from json file and save them in argv  
             argv = jsonfile.readFileSync(argv.config, (err) => {
                 if (err) console.error(err);

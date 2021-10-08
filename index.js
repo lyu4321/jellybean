@@ -5,7 +5,6 @@ const { hideBin } = require('yargs/helpers');
 const pkg = require('./package.json');
 const jsonfile = require('jsonfile');
 
-
 /**
  * Checks to see if an output directory exists and if it does, remove it, then create the directory
  * @param {string} directory => path to the directory

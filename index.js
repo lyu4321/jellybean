@@ -168,17 +168,6 @@ const getUserInput = (argv) => {
 
     if (argv.input) {
         input = argv.input.join(' ');
-        // Setting the output directory
-        if (argv.output && !fs.existsSync(argv.output)) {
-            console.error('Invalid output argument entered.');
-            return false;
-        } else {
-            argv.output = 'dist';
-        }
-        // Setting the stylesheet
-        if (!argv.stylesheet) {
-            argv.stylesheet = 'style.css';
-        }
     }
 
     if(argv.config && fs.existsSync(argv.config)) {
@@ -192,6 +181,21 @@ const getUserInput = (argv) => {
             console.error('Config file needs to be a JSON file');
             return false;
         }
+    } else {
+        console.log('JSON config file is required');
+        return false;
+    }
+
+    // Setting the output directory
+    if (argv.output && !fs.existsSync(argv.output)) {
+        console.error('Invalid output argument entered.');
+        return false;
+    } else {
+        argv.output = 'dist';
+    }
+    // Setting the stylesheet
+    if (!argv.stylesheet) {
+        argv.stylesheet = 'style.css';
     }
 
     // Setting the input

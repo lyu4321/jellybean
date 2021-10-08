@@ -3,6 +3,7 @@ const path = require('path');
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
 const pkg = require('./package.json');
+const jsonfile = require('jsonfile');
 
 
 /**
@@ -162,14 +163,33 @@ const writeIndexPage = (argv, input) => {
  * @return {boolean} => returns true if the user input is valid (valid input and output directory) 
  */
 const getUserInput = (argv) => {
-    let input = argv.input.join(' ');
+    let input = ''; 
     let filesArray = [];
 
-    // Setting the output directory
-    if (argv.output) {
-        if (!fs.existsSync(argv.output)) {
+    if (argv.input) {
+        input = argv.input.join(' ');
+    }
+
+    if(argv.config && fs.existsSync(argv.config)) {
+        if (fs.statSync(argv.config).isFile() && path.extname(argv.config) == '.json') {
+            // Get options from json file and save them in argv  
+            argv = jsonfile.readFileSync(argv.config, (err) => {
+                if (err) console.error(err);
+            })
+            input = argv.input;
+        } else {
+            console.error('Config file needs to be a JSON file');
             return false;
         }
+    } else {
+        console.log('JSON config file is required');
+        return false;
+    }
+
+    // Setting the output directory
+    if (argv.output && !fs.existsSync(argv.output)) {
+        console.error('Invalid output argument entered.');
+        return false;
     } else {
         argv.output = 'dist';
     }
@@ -177,8 +197,10 @@ const getUserInput = (argv) => {
     if (!argv.stylesheet) {
         argv.stylesheet = 'style.css';
     }
+
     // Setting the input
     if (!input || !fs.existsSync(input)) {
+        console.error('Input file or folder is required');
         return false;
     } else {
         if (fs.statSync(input).isFile() && (path.extname(input) == '.txt' || path.extname(input) == '.md')) {
@@ -216,9 +238,13 @@ const main = () => {
         .alias('h', 'help')
         .version(pkg.name + ' ' + pkg.version)
         .alias('v', 'version')
+        .option('config', {
+            alias: 'c',
+            describe: 'Path to a JSON config file',
+            type: 'string'
+        })
         .options('input', {
             alias: 'i',
-            demandOption: true,
             describe: 'Path to a file or folder with files',
             type: 'array'
         })
@@ -240,7 +266,7 @@ const main = () => {
         .argv;
     let check = getUserInput(argv);
     if (!check) {
-        console.error('Invalid argument entered. Please see --help for options.');
+        console.error('Please see --help for options.');
     }
 }
 

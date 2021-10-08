@@ -8,7 +8,6 @@
   "author": "Leyang Yu",
   "license": "MIT",
   "dependencies": {
-    "jsonfile": "^6.1.0",
     "yargs": "^17.1.1"
   }
 }

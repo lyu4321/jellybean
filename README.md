@@ -23,14 +23,14 @@ npm install
 
 Path to an existing text/markdown file
 ```diff
-node index.js --input <file>
-node index.js -i <file>
+node src/index.js --input <file>
+node src/index.js -i <file>
 ```
 
 Path to an existing folder containing multiple files
 ```diff
-node index.js --input <folder>
-node index.js -i <folder>
+node src/index.js --input <folder>
+node src/index.js -i <folder>
 ```
 
 The input path to either an existing text/markdown file or a folder containing multiple files is required. Please specify the input path using the `--input/-i` flag or by adding it as `"input"` in a JSON config file.
@@ -66,21 +66,21 @@ Example JSON file
 # Getting Help
 
 ```diff
-node index.js --help
-node index.js -h
+node src/index.js --help
+node src/index.js -h
 ```
 
 # Getting the Version
 
 ```diff
-node index.js --version
-node index.js -v
+node src/index.js --version
+node src/index.js -v
 ```
 
 # Example Using a File
 
 ```diff
-node index.js -i Sherlock-Holmes-Selected-Stories/The Adventure of the Six Napoleans.txt -l en-US -o customoutput -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css
+node src/index.js -i Sherlock-Holmes-Selected-Stories/The Adventure of the Six Napoleans.txt -l en-US -o customoutput -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css
 ```
 
 Original File:<br/>
@@ -141,7 +141,7 @@ customoutput/The Adventure of the Six Napoleans.html
 # Example Using a Folder
 
 ```diff
-node index.js -i Sherlock-Holmes-Selected-Stories
+node src/index.js -i Sherlock-Holmes-Selected-Stories
 ```
 
 In the Sherlock-Holmes-Selected-Stories folder, if you have the files:<br/>

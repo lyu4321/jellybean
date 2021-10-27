@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const markdownit = require('markdown-it');
 
 /**
  * Create the output directory and all files in the directory
@@ -125,28 +126,22 @@ const getHtmlTitleBody = (file, isTxt) => {
         html.title = tempTitle[0].trim();
     }
 
-    html.body = file
-        .split(/\r?\n\r?\n/)
-        .map((para) => {
-            if (para == html.title) {
-                `<h1>${para.replace(/\r?\n/, ' ')}</h1>\n`;
-            } else {
-                if (isTxt) {
-                    return `<p>${para.replace(/\r?\n/, ' ')}</p>\n`;
+    if (isTxt) {
+        html.body = file
+            .split(/\r?\n\r?\n/)
+            .map((para) => {
+                if (para == html.title) {
+                    return `<h1>${para.replace(/\r?\n/, ' ')}</h1>\n`;
                 } else {
-                    let string = para
-                        .replace(/^\s*#{1} (.*$)/, '<h1>$1</h1>')
-                        .replace(/^\s*#{2} (.*$)/, '<h2>$1</h2>')
-                        .replace(/^\s*#{3} (.*$)/, '<h3>$1</h3>')
-                        .replace(/\`{1,}(.*?)\`{1,}/g, '<code>$1</code>')
-                        .replace(/-{3,}/g, '<hr />')
-                    return string.startsWith('<h')
-                        ? string + '\n'
-                        : `<p>${string.replace(/\r?\n/, ' ')}</p>\n`;
+                    return `<p>${para.replace(/\r?\n/, ' ')}</p>\n`;
                 }
-            }
-        })
-        .join('');
+            })
+            .join('');
+    } else {
+        md = new markdownit();
+        html.body = md.render((file.substring((html.title).length)).trim());
+    }
+
     return html;
 }
 

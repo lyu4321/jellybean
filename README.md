@@ -47,11 +47,11 @@ The contents of each file will be converted into an HTML file with the same name
 
  # JSON Config File
 
- Instead of passing options as flags, a path to a JSON config file can be provided. This JSON file needs to contain at least "input" with the path to the file or folder.
+ Instead of passing options through the command line, a path to a JSON config file can be provided. This JSON file needs to contain at least "input" with the path to the file or folder.
 
  | Flag  | Description |
 | ------------- | ------------- |
-| `--config/-c <file.json>` | Path to a JSON config file than contains other options |
+| `--config/-c <file.json>` | Path to a JSON config file containing options |
 
 Example JSON file
 
@@ -157,50 +157,25 @@ In the dist folder, the following files will be generated:<br/>
 
 # Additional Support for Markdown Files
 
-For markdown files (.md), the program will parse markdown to HTML tags.
-
-| MD File         | HTML File             | Webpage             |
-| --------------- | --------------------- | ------------------- |
-| `# H1 Heading`  | `<h1>H1 Heading</h1>` | <h1>H1 Heading</h1> |
-| `## H2 Heading` | `<h2>H2 Heading</h2>` | <h2>H2 Heading</h2> |
-| `### H3 Heading` | `<h3>H3 Heading</h3>` | <h3>H3 Heading</h3>  |
-| `---` | `<hr />` | <hr /> |
-| `    ```Inline code block```    ` | `<code>Inline code block</code>` | <code>Inline code block</code> |
+For markdown files (.md), the program will parse markdown to HTML tags. Full markdown support is provided through [markdown-it](https://markdown-it.github.io/).
 
 # Example Using a Markdown File
 
 Original File:<br/>
-README.md
+README Excerpt.md
 
-```
+```md
 # Jellybean
 
-From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.
+From one *small* program, you can create an **entire** website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.
 
---- 
+## More Info
 
-## Main Features
-
-1. A single text/markdown file or folder containing multiple files can be converted into HTML files.
-2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
-3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).
-
----
-
-### Installation
-
-1. Clone this repository
-2. Download [Node.js](https://nodejs.org/en/)
-3. Run the following commands
-
-```cd jellybean```
-
-```npm install```
-
+For more information, please visit [the GitHub repository](https://github.com/lyu4321/jellybean). 
 ```
 
 Generated File:<br/>
-README.html
+README Excerpt.html
 
 ```html
 <!doctype html>
@@ -214,26 +189,17 @@ README.html
 </head>
 
 <body>
-    <div><ul><li><a href='./index.html'>Home</a></li><li><a href='./README.html'>README</a></li></ul></div>
+    <div id="nav"><div><ul><li><a href='./index.html'>Home</a></li><li><a href='./README Excerpt.html'>README Excerpt</a></li></ul></div></div>
     <h1></h1>
     <h1>Jellybean</h1>
-<p>From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.</p>
-<hr />
-<h2>Main Features</h2>
-<p>1. A single text/markdown file or folder containing multiple files can be converted into HTML files. 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
-3. Generated files are stored in the 'dist' folder and style is provided by 'style.css' by default. Custom folders and styles can be specified using optional flags (see below).</p>
-<hr />
-<h3>Installation</h3>
-<p>1. Clone this repository 2. Download [Node.js](https://nodejs.org/en/)
-3. Run the following commands</p>
-<p><code>cd jellybean</code></p>
-<p><code>npm install</code></p>
+<p>From one <em>small</em> program, you can create an <strong>entire</strong> website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.</p>
+<h2>More Info</h2>
+<p>For more information, please visit <a href="https://github.com/lyu4321/jellybean">the GitHub repository</a>.</p>
 
 </body>
 
 </html>
 ```
-
 
 # Live Demo
 

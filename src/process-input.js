@@ -4,7 +4,7 @@ const jsonfile = require('jsonfile');
 const setupOutput = require('./create-html');
 
 /**
- * Check the user input 
+ * Check the user input
  * @param {object} argv => command line args
  * @return {boolean} => return true if the user input is valid, else false
  */
@@ -14,11 +14,15 @@ const checkUserInput = (argv) => {
     }
 
     if (argv.config) {
-        if (!fs.existsSync(argv.config) || !fs.statSync(argv.config).isFile() || path.extname(argv.config) != '.json') {
+        if (
+            !fs.existsSync(argv.config) ||
+            !fs.statSync(argv.config).isFile() ||
+            path.extname(argv.config) != '.json'
+        ) {
             console.error('JSON config file is required');
             return false;
         } else {
-            // Get options from json file and save them in argv  
+            // Get options from json file and save them in argv
             argv = jsonfile.readFileSync(argv.config, (err) => {
                 if (err) {
                     console.error(err);
@@ -46,7 +50,10 @@ const checkUserInput = (argv) => {
         console.error('Input file or folder is required');
         return false;
     } else {
-        if (fs.statSync(input).isFile() && (path.extname(input) == '.txt' || path.extname(input) == '.md')) {
+        if (
+            fs.statSync(input).isFile() &&
+            (path.extname(input) == '.txt' || path.extname(input) == '.md')
+        ) {
             setupOutput(argv);
         } else if (fs.statSync(input).isDirectory()) {
             fs.readdir(input, (err, files) => {
@@ -54,7 +61,9 @@ const checkUserInput = (argv) => {
                     console.error(`The directory ${input} could not be read`);
                     process.exit(-1);
                 }
-                let filesArray = files.filter(f => path.extname(f) == '.txt' || path.extname(f) == '.md');
+                let filesArray = files.filter(
+                    (f) => path.extname(f) == '.txt' || path.extname(f) == '.md'
+                );
                 setupOutput(argv, filesArray);
             });
         } else {
@@ -62,6 +71,6 @@ const checkUserInput = (argv) => {
         }
     }
     return true;
-}
+};
 
 module.exports = checkUserInput;

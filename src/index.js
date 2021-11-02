@@ -15,32 +15,31 @@ const main = () => {
         .option('config', {
             alias: 'c',
             describe: 'Path to a JSON config file',
-            type: 'string'
+            type: 'string',
         })
         .options('input', {
             alias: 'i',
             describe: 'Path to a file or folder with files',
-            type: 'array'
+            type: 'array',
         })
         .option('lang', {
             alias: 'l',
             describe: 'Language used in generated HTML files',
-            type: 'string'
+            type: 'string',
         })
         .option('output', {
             alias: 'o',
             describe: 'Path to an output directory',
-            type: 'string'
+            type: 'string',
         })
         .option('stylesheet', {
             alias: 's',
             describe: 'Stylesheet URL',
-            type: 'string'
-        })
-        .argv;
+            type: 'string',
+        }).argv;
     if (!checkUserInput(argv)) {
         console.error('Please see --help for options.');
     }
-}
+};
 
 main();

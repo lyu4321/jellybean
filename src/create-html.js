@@ -18,20 +18,31 @@ const setupOutput = (argv, filesArray) => {
     let input = argv.input;
     if (filesArray) {
         if (filesArray.length > 0) {
-            filesArray.forEach(file => {
+            filesArray.forEach((file) => {
                 if (fs.existsSync(`${input}/${file}`)) {
-                    fs.readFile(`${input}/${file}`, 'utf8', (err, fileContent) => {
-                        if (err) {
-                            console.error(`The file ${input}/${file} could not be read`);
-                            process.exit(-1);
+                    fs.readFile(
+                        `${input}/${file}`,
+                        'utf8',
+                        (err, fileContent) => {
+                            if (err) {
+                                console.error(
+                                    `The file ${input}/${file} could not be read`
+                                );
+                                process.exit(-1);
+                            }
+                            let newArgv = {
+                                ...argv,
+                                input: `${argv.input}/${file}`,
+                            };
+                            createHtmlFile(newArgv, fileContent, filesArray);
                         }
-                        let newArgv = { ...argv, input: `${argv.input}/${file}` };
-                        createHtmlFile(newArgv, fileContent, filesArray);
-                    })
+                    );
                 }
-            })
+            });
         } else {
-            console.error(`The directory ${input} does not contain any .txt or .md files`);
+            console.error(
+                `The directory ${input} does not contain any .txt or .md files`
+            );
             process.exit(-1);
         }
     } else {
@@ -41,20 +52,27 @@ const setupOutput = (argv, filesArray) => {
                 process.exit(-1);
             }
             createHtmlFile(argv, fileContent);
-        })
+        });
     }
 
     // Create style.css in output directory (if no custom stylesheet)
     if (argv.stylesheet == 'style.css') {
         let style = fs.readFileSync('src/' + argv.stylesheet, 'utf8');
-        fs.writeFile(`${argv.output}/${argv.stylesheet}`, style, 'utf8', (err) => {
-            if (err) {
-                console.error(`The file ${argv.output}/${argv.stylesheet} could not be created`);
-                process.exit(-1);
+        fs.writeFile(
+            `${argv.output}/${argv.stylesheet}`,
+            style,
+            'utf8',
+            (err) => {
+                if (err) {
+                    console.error(
+                        `The file ${argv.output}/${argv.stylesheet} could not be created`
+                    );
+                    process.exit(-1);
+                }
             }
-        })
+        );
     }
-}
+};
 
 /**
  * Check if an output directory exists and if it does, remove it, then create the directory
@@ -65,7 +83,7 @@ const createDirectory = (directory) => {
         fs.rmdirSync(directory, { recursive: true });
     }
     fs.mkdirSync(directory);
-}
+};
 
 /**
  * Read and return the layout.html file contents
@@ -73,7 +91,7 @@ const createDirectory = (directory) => {
  */
 const getHtmlLayout = () => {
     return fs.readFileSync('src/layout.html', 'utf8');
-}
+};
 
 /**
  * Update and return the layout, replacing placeholders with user input
@@ -88,7 +106,7 @@ const getUpdatedHtmlLayout = (html) => {
         .replace(/{nav}/g, html.nav)
         .replace(/{body}/g, html.body)
         .replace('en-CA', html.lang || 'en-CA');
-}
+};
 
 /**
  * Create and return the nav of a page
@@ -101,14 +119,15 @@ const getHtmlNav = (input) => {
         let filename = path.parse(path.basename(input)).name;
         return `<div><ul>${index}<li><a href='./${filename}.html'>${filename}</a></li></ul></div>`;
     } else {
-        let links = input.map(file => {
-            let filename = path.parse(path.basename(file)).name;
-            return `<li><a href='./${filename}.html'>${filename}</a></li>`;
-        })
+        let links = input
+            .map((file) => {
+                let filename = path.parse(path.basename(file)).name;
+                return `<li><a href='./${filename}.html'>${filename}</a></li>`;
+            })
             .join(' ');
         return `<div><ul>${index}${links}</ul></div>`;
     }
-}
+};
 
 /**
  * Create and return the title and body of a page
@@ -118,8 +137,8 @@ const getHtmlNav = (input) => {
 const getHtmlTitleBody = (file, isTxt) => {
     let html = {
         title: '',
-        body: ''
-    }
+        body: '',
+    };
 
     let tempTitle = file.match(/^.+(\r?\n\r?\n\r?\n)/);
     if (tempTitle) {
@@ -138,17 +157,17 @@ const getHtmlTitleBody = (file, isTxt) => {
             })
             .join('');
     } else {
-        md = new markdownit();
-        html.body = md.render((file.substring((html.title).length)).trim());
+        let md = new markdownit();
+        html.body = md.render(file.substring(html.title.length).trim());
     }
 
     return html;
-}
+};
 
 /**
  * Given file contents, create an .html file in the output directory
  * @param {object} argv => command line args
- * @param {string} fileContent => contents of file 
+ * @param {string} fileContent => contents of file
  * @param {string} filesArray => array of all .txt and .md files in a directory
  */
 const createHtmlFile = (argv, fileContent, filesArray) => {
@@ -158,18 +177,31 @@ const createHtmlFile = (argv, fileContent, filesArray) => {
     let layout = getHtmlLayout();
     let nav = getHtmlNav(filesArray || file);
     let html = getHtmlTitleBody(fileContent, path.extname(file) == '.txt');
-    html = { ...html, layout: layout, nav: nav, stylesheet: argv.stylesheet, lang: argv.lang }
+    html = {
+        ...html,
+        layout: layout,
+        nav: nav,
+        stylesheet: argv.stylesheet,
+        lang: argv.lang,
+    };
     let updatedLayout = getUpdatedHtmlLayout(html);
 
     // Write contents to .html file in output directory
     let filename = path.parse(path.basename(file)).name;
-    fs.writeFile(`${argv.output}/${filename}.html`, updatedLayout, 'utf8', (err) => {
-        if (err) {
-            console.error(`The file ${argv.output}/${filename}.html could not be created`);
-            process.exit(-1);
+    fs.writeFile(
+        `${argv.output}/${filename}.html`,
+        updatedLayout,
+        'utf8',
+        (err) => {
+            if (err) {
+                console.error(
+                    `The file ${argv.output}/${filename}.html could not be created`
+                );
+                process.exit(-1);
+            }
         }
-    })
-}
+    );
+};
 
 /**
  * Create an index.html page for the generated site
@@ -179,16 +211,25 @@ const createIndexPage = (argv, filesArray) => {
     // Get updated layout
     let layout = getHtmlLayout();
     let nav = getHtmlNav(filesArray || argv.input);
-    let html = { title: 'Home', body: '', layout: layout, nav: nav, stylesheet: argv.stylesheet, lang: argv.lang }
+    let html = {
+        title: 'Home',
+        body: '',
+        layout: layout,
+        nav: nav,
+        stylesheet: argv.stylesheet,
+        lang: argv.lang,
+    };
     let updatedLayout = getUpdatedHtmlLayout(html);
 
     // Write contents to index.html file in output directory
     fs.writeFile(`${argv.output}/index.html`, updatedLayout, 'utf8', (err) => {
         if (err) {
-            console.error(`The file ${argv.output}/index.html could not be created`);
+            console.error(
+                `The file ${argv.output}/index.html could not be created`
+            );
             process.exit(-1);
         }
-    })
-}
+    });
+};
 
 module.exports = setupOutput;

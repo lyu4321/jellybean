@@ -7,7 +7,7 @@ From one small program, you can create an entire website. Jellybean is a static 
 1. A single text/markdown file or folder containing multiple files can be converted into HTML files.
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
 3. Generated files are stored in the 'dist' folder and style is provided by 'style.css'. The default language is set to 'en-CA'. Custom folders, styles, and languages can be specified using [optional flags](https://github.com/lyu4321/jellybean#optional-flags).
-4. Markdown files will be parsed for [markdown syntax](https://github.com/lyu4321/jellybean#additional-support-for-md-markdown-files) in order to generate the proper HTML.
+4. Markdown files will be parsed for [markdown syntax](https://github.com/lyu4321/jellybean#additional-support-for-markdown-files) in order to generate the proper HTML.
 
 # Installation
 
@@ -86,7 +86,8 @@ node src/index.js -v
 node src/index.js -i Sherlock-Holmes-Selected-Stories/The Adventure of the Six Napoleans.txt -l en-US -o customoutput -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css
 ```
 
-Original File:<br/>
+Original File:
+
 Sherlock-Holmes-Selected-Stories/The Adventure of the Six Napoleans.txt
 
 ```diff
@@ -104,7 +105,8 @@ active interference, to give some hint or suggestion drawn from
 his own vast knowledge and experience.
 ```
 
-Generated File:<br/>
+Generated File:
+
 customoutput/The Adventure of the Six Napoleans.html
 
 ```html
@@ -153,6 +155,7 @@ customoutput/The Adventure of the Six Napoleans.html
 node src/index.js -i Sherlock-Holmes-Selected-Stories
 ```
 
+<<<<<<< HEAD
 In the Sherlock-Holmes-Selected-Stories folder, if you have the files:<br/>
 
 -   notatextfile.js
@@ -164,7 +167,20 @@ In the dist folder, the following files will be generated:<br/>
 -   index.html
 -   Silver Blaze.html
 -   style.css
+-   # The Adventure of the Six Napoleons.html
+    In the Sherlock-Holmes-Selected-Stories folder, if you have the files:
+
+*   notatextfile.js
+*   Silver Blaze.txt
+*   The Adventure of the Six Napoleans.txt
+
+In the dist folder, the following files will be generated:
+
+-   index.html
+-   Silver Blaze.html
+-   style.css
 -   The Adventure of the Six Napoleons.html
+    > > > > > > > b1aa2de465c9edcd21ef08ba4dbf22552abd8b75
 
 # Additional Support for Markdown Files
 
@@ -172,7 +188,8 @@ For markdown files (.md), the program will parse markdown to HTML tags. Full mar
 
 # Example Using a Markdown File
 
-Original File:<br/>
+Original File:
+
 README Excerpt.md
 
 ```md
@@ -185,7 +202,8 @@ From one _small_ program, you can create an **entire** website. Jellybean is a s
 For more information, please visit [the GitHub repository](https://github.com/lyu4321/jellybean).
 ```
 
-Generated File:<br/>
+Generated File:
+
 README Excerpt.html
 
 ```html

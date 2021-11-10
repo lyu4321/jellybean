@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch --",
+    "coverage": "jest --collectCoverage --",
     "prettier": "prettier --write .",
     "prettier-check": "prettier --check .",
     "eslint": "npx eslint .",
@@ -13,13 +15,19 @@
   "author": "Leyang Yu",
   "license": "MIT",
   "dependencies": {
+    "@types/jest": "^27.0.2",
+    "execa": "^5.1.1",
+    "finalhandler": "^1.1.2",
     "jsonfile": "^6.1.0",
     "markdown-it": "^12.2.0",
+    "serve-static": "^1.14.1",
     "yargs": "^17.1.1"
   },
   "devDependencies": {
     "eslint": "^8.1.0",
+    "eslint-plugin-jest": "^25.2.4",
     "husky": "^7.0.4",
+    "jest": "^27.3.1",
     "prettier": "2.4.1"
   }
 }

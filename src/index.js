@@ -39,6 +39,7 @@ const main = () => {
         }).argv;
     if (!checkUserInput(argv)) {
         console.error('Please see --help for options.');
+        process.exit(1);
     }
 };
 

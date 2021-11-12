@@ -39,7 +39,7 @@ describe('E2E integration', () => {
     test('Prints error message when empty folder', async () => {
         const { stderr, stdout, exitCode } = await run(
             '--input',
-            'empty-folder'
+            'invalid-folder'
         );
         expect(exitCode).toBe(1);
         expect(stderr).toMatchSnapshot();

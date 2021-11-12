@@ -1,10 +1,6 @@
 const run = require('./run');
-const server = require('./server');
 
 describe('E2E integration', () => {
-    beforeAll(() => server.start(8888));
-    afterAll(() => server.stop());
-
     test('Print error message when no input', async () => {
         const { stderr, stdout, exitCode } = await run();
         expect(exitCode).toBe(1);

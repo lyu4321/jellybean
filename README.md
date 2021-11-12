@@ -244,6 +244,10 @@ README Excerpt.html
 </html>
 ```
 
+# Contributing
+
+Please see the [Contributing Docs](https://github.com/lyu4321/jellybean/blob/main/CONTRIBUTING.md) for more information.
+
 # Live Demo
 
 [https://lyu4321.github.io/jellybean](https://lyu4321.github.io/jellybean)

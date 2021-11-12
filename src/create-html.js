@@ -28,7 +28,7 @@ const setupOutput = (argv, filesArray) => {
                                 console.error(
                                     `The file ${input}/${file} could not be read`
                                 );
-                                process.exit(1);
+                                process.exit(-1);
                             }
                             let newArgv = {
                                 ...argv,
@@ -43,13 +43,13 @@ const setupOutput = (argv, filesArray) => {
             console.error(
                 `The directory ${input} does not contain any .txt or .md files`
             );
-            process.exit(1);
+            process.exit(-1);
         }
     } else {
         fs.readFile(input, 'utf8', (err, fileContent) => {
             if (err) {
                 console.error(`The file ${input} could not be read`);
-                process.exit(1);
+                process.exit(-1);
             }
             createHtmlFile(argv, fileContent);
         });
@@ -67,7 +67,7 @@ const setupOutput = (argv, filesArray) => {
                     console.error(
                         `The file ${argv.output}/${argv.stylesheet} could not be created`
                     );
-                    process.exit(1);
+                    process.exit(-1);
                 }
             }
         );
@@ -115,21 +115,18 @@ const getUpdatedHtmlLayout = (html) => {
  */
 const getHtmlNav = (input) => {
     let index = `<li><a href='./index.html'>Home</a></li>`;
-    if (input) {
-        if (!Array.isArray(input)) {
-            let filename = path.parse(path.basename(input)).name;
-            return `<div><ul>${index}<li><a href='./${filename}.html'>${filename}</a></li></ul></div>`;
-        } else {
-            let links = input
-                .map((file) => {
-                    let filename = path.parse(path.basename(file)).name;
-                    return `<li><a href='./${filename}.html'>${filename}</a></li>`;
-                })
-                .join('');
-            return `<div><ul>${index}${links}</ul></div>`;
-        }
+    if (!Array.isArray(input)) {
+        let filename = path.parse(path.basename(input)).name;
+        return `<div><ul>${index}<li><a href='./${filename}.html'>${filename}</a></li></ul></div>`;
+    } else {
+        let links = input
+            .map((file) => {
+                let filename = path.parse(path.basename(file)).name;
+                return `<li><a href='./${filename}.html'>${filename}</a></li>`;
+            })
+            .join(' ');
+        return `<div><ul>${index}${links}</ul></div>`;
     }
-    return `<div><ul>${index}</ul></div>`;
 };
 
 /**
@@ -200,11 +197,7 @@ const createHtmlFile = (argv, fileContent, filesArray) => {
                 console.error(
                     `The file ${argv.output}/${filename}.html could not be created`
                 );
-                process.exit(1);
-            } else {
-                console.log(
-                    `The file ${argv.output}/${filename}.html has been created`
-                );
+                process.exit(-1);
             }
         }
     );
@@ -234,9 +227,9 @@ const createIndexPage = (argv, filesArray) => {
             console.error(
                 `The file ${argv.output}/index.html could not be created`
             );
-            process.exit(1);
+            process.exit(-1);
         }
     });
 };
 
-module.exports = { setupOutput, getHtmlNav };
+module.exports = setupOutput;

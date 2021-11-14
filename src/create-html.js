@@ -80,7 +80,7 @@ const setupOutput = (argv, filesArray) => {
  */
 const createDirectory = (directory) => {
     if (fs.existsSync(directory)) {
-        fs.rmdirSync(directory, { recursive: true });
+        fs.rmSync(directory, { recursive: true });
     }
     fs.mkdirSync(directory);
 };

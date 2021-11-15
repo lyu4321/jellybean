@@ -52,17 +52,10 @@ describe('E2E integration', () => {
         expect(stderr).toEqual('');
     });
 
-    test('Generates HTML files when valid folder path', async () => {
-        const { stderr, stdout, exitCode } = await run('--input', 'test-docs');
-        expect(exitCode).toBe(0);
-        expect(stdout).toMatchSnapshot();
-        expect(stderr).toEqual('');
-    });
-
     test('Generates HTML files when valid file and output paths', async () => {
         const { stderr, stdout, exitCode } = await run(
             '--input',
-            'test-docs//Silver Blaze.txt',
+            'test-docs/Silver Blaze.txt',
             '--output',
             'empty-folder'
         );

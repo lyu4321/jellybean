@@ -13,13 +13,13 @@ describe('Unit tests for checkUserInput', () => {
         ).toBe(false);
     });
 
-    /*test('Returns true when valid config file', () => {
+    test('Returns true when valid config file', () => {
         expect(
             checkUserInput({
                 config: 'test-docs/config.json',
             })
         ).toBe(true);
-    });*/
+    });
 
     test('Returns false when invalid input file', () => {
         expect(

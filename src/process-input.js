@@ -27,6 +27,7 @@ const checkUserInput = (argv) => {
                 argv = jsonfile.readFileSync(argv.config, (err) => {
                     if (err) {
                         console.error(err);
+                        return false;
                     }
                 });
             }
@@ -47,6 +48,7 @@ const checkUserInput = (argv) => {
 
         // Set the input
         let input = argv.input;
+        let filesArray = [];
         if (!input || !fs.existsSync(input)) {
             console.error('Input file or folder is required');
             return false;
@@ -59,21 +61,20 @@ const checkUserInput = (argv) => {
             } else if (fs.statSync(input).isDirectory()) {
                 try {
                     let files = fs.readdirSync(input);
-                    let filesArray = files.filter(
+                    filesArray = files.filter(
                         (f) =>
                             path.extname(f) == '.txt' ||
                             path.extname(f) == '.md'
                     );
                     if (filesArray.length == 0) {
                         console.error('Input directory is empty.');
-                        process.exit(1);
-                    } else {
-                        setupOutput(argv, filesArray);
+                        return false;
                     }
                 } catch (e) {
                     console.error(`The directory ${input} could not be read`);
-                    process.exit(1);
+                    return false;
                 }
+                setupOutput(argv, filesArray);
             } else {
                 return false;
             }

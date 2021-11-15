@@ -4,14 +4,15 @@ exports[`E2E integration Generates HTML file when valid file path 1`] = `""`;
 
 exports[`E2E integration Generates HTML files when valid file and output paths 1`] = `""`;
 
-exports[`E2E integration Generates HTML files when valid folder path 1`] = `""`;
-
 exports[`E2E integration Print error message when no input 1`] = `
 "Input file or folder is required
 Please see --help for options."
 `;
 
-exports[`E2E integration Prints error message when empty folder 1`] = `"Input directory is empty."`;
+exports[`E2E integration Prints error message when empty folder 1`] = `
+"Input directory is empty.
+Please see --help for options."
+`;
 
 exports[`E2E integration Prints error message when invalid input 1`] = `
 "Input file or folder is required

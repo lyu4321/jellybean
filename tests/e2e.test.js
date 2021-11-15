@@ -52,7 +52,7 @@ describe('E2E integration', () => {
         expect(stderr).toEqual('');
     });
 
-    test('Generates HTML files when valid file and output paths', async () => {
+    /*test('Generates HTML files when valid file and output paths', async () => {
         const { stderr, stdout, exitCode } = await run(
             '--input',
             'test-docs/Silver Blaze.txt',
@@ -62,5 +62,5 @@ describe('E2E integration', () => {
         expect(exitCode).toBe(0);
         expect(stdout).toMatchSnapshot();
         expect(stderr).toEqual('');
-    });
+    });*/
 });

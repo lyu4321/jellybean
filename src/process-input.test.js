@@ -29,7 +29,7 @@ describe('Unit tests for checkUserInput', () => {
         ).toBe(false);
     });
 
-    /*test('Returns true when valid input file', () => {
+    test('Returns true when valid input file', () => {
         expect(
             checkUserInput({
                 input: ['test-docs/Silver', 'Blaze.txt'],
@@ -37,7 +37,7 @@ describe('Unit tests for checkUserInput', () => {
                     'https://cdn.jsdelivr.net/npm/water.css@2/out/water.css',
             })
         ).toBe(true);
-    });*/
+    });
 
     test('Returns false when invalid output directory', () => {
         expect(

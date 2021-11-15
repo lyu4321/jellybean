@@ -62,7 +62,7 @@ describe('E2E integration', () => {
     test('Generates HTML files when valid file and output paths', async () => {
         const { stderr, stdout, exitCode } = await run(
             '--input',
-            'test-docs',
+            'test-docs//Silver Blaze.txt',
             '--output',
             'empty-folder'
         );

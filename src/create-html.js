@@ -201,10 +201,6 @@ const createHtmlFile = (argv, fileContent, filesArray) => {
                     `The file ${argv.output}/${filename}.html could not be created`
                 );
                 process.exit(1);
-            } else {
-                console.log(
-                    `The file ${argv.output}/${filename}.html has been created`
-                );
             }
         }
     );

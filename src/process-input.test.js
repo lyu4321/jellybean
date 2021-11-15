@@ -50,14 +50,14 @@ describe('Unit tests for checkUserInput', () => {
         ).toBe(false);
     });
 
-    /*test('Returns true when valid input and output directory', () => {
+    test('Returns true when valid input and output directory', () => {
         expect(
             checkUserInput({
                 input: ['test-docs'],
                 output: 'test-docs/test-folder',
             })
         ).toBe(true);
-    });*/
+    });
 
     test('Returns false when empty input directory', () => {
         expect(

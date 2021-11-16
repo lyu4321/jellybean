@@ -12,7 +12,7 @@ From one small program, you can create an entire website. Jellybean is a static 
 # Installation
 
 1. Clone this repository
-2. Download [Node.js](https://nodejs.org/en/)
+2. Download [Node.js](https://nodejs.org/en/) (version 14+)
 3. Run the following commands
 
 ```diff

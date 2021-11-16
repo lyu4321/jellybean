@@ -144,7 +144,6 @@ describe('Unit tests for getUpdatedHtmlLayout', () => {
 describe('Unit tests for getHtmlTitleBody', () => {
     test('Should return an object of title and body for text file with title', () => {
         const txtFile = `Sample Title\n\n\nThis is a sample text file.`;
-
         const expected = {
             title: 'Sample Title',
             body:
@@ -156,7 +155,6 @@ describe('Unit tests for getHtmlTitleBody', () => {
 
     test('Should return an object of empty title and body for text file with no title', () => {
         const txtFile = `This is a sample text file.`;
-
         const expected = {
             title: '',
             body: '<p>This is a sample text file.</p>\n',

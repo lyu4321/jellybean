@@ -35,7 +35,7 @@ describe('E2E integration', () => {
     test('Prints error message when empty folder', async () => {
         const { stderr, stdout, exitCode } = await run(
             '--input',
-            'invalid-folder'
+            'test-docs/invalid-folder'
         );
         expect(exitCode).toBe(1);
         expect(stderr).toMatchSnapshot();
@@ -57,7 +57,7 @@ describe('E2E integration', () => {
             '--input',
             'test-docs/Silver Blaze.txt',
             '--output',
-            'empty-folder'
+            'test-docs/empty-folder'
         );
         expect(exitCode).toBe(0);
         expect(stdout).toMatchSnapshot();

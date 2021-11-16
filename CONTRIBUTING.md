@@ -3,7 +3,7 @@
 ## Prerequisites
 
 -   Fork and clone this project
--   Download [Node.js (npm)](https://nodejs.org/en/download/)
+-   Download [Node.js (npm)](https://nodejs.org/en/download/) (version 14+)
 -   Install dependencies using `npm install`
 
 ## Prettier

@@ -1,19 +1,19 @@
-const { getHtmlNav } = require('./create-html');
+const { getHtmlLayout, getUpdatedHtmlLayout, getHtmlNav } = require('./create-html');
 
 describe('Unit tests for getHtmlNav', () => {
-    test('Creates navbar with link to index page', () => {
+    test('Should create navbar with link to index page (no args)', () => {
         expect(getHtmlNav()).toBe(
             `<div><ul><li><a href='./index.html'>Home</a></li></ul></div>`
         );
     });
 
-    test('Creates navbar with link to index and user-defined pages (single file)', () => {
+    test('Should create navbar with link to index and user-defined pages (string arg)', () => {
         expect(getHtmlNav('Silver Blaze.txt')).toBe(
             `<div><ul><li><a href='./index.html'>Home</a></li><li><a href='./Silver Blaze.html'>Silver Blaze</a></li></ul></div>`
         );
     });
 
-    test('Creates navbar with link to index and user-defined pages (array of files)', () => {
+    test('Should create navbar with link to index and user-defined pages (string array arg)', () => {
         expect(
             getHtmlNav([
                 'Silver Blaze.txt',
@@ -24,9 +24,101 @@ describe('Unit tests for getHtmlNav', () => {
         );
     });
 
-    test('Creates navbar with link to index page (empty array)', () => {
+    test('Should create navbar with link to index page (empty array arg)', () => {
         expect(getHtmlNav([])).toBe(
             `<div><ul><li><a href='./index.html'>Home</a></li></ul></div>`
         );
+    });
+});
+
+const html = `<!DOCTYPE html>
+<html lang="en-CA">
+    <head>
+        <link rel="stylesheet" href="{stylesheet}" />
+        <meta charset="utf-8" />
+        <title>{title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+
+    <body>
+        <div id="nav">{nav}</div>
+        <h1>{title}</h1>
+        {body}
+    </body>
+</html>
+`;
+
+const expected = `<!DOCTYPE html>
+<html lang="en-CA">
+    <head>
+        <link rel="stylesheet" href="style.css" />
+        <meta charset="utf-8" />
+        <title> </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+
+    <body>
+        <div id="nav"> </div>
+        <h1> </h1>
+         
+    </body>
+</html>
+`;
+
+describe('Unit tests for getHtmlLayout', () => {
+    test('Should return default HTML template', () => {
+        expect(getHtmlLayout()).toBe(html);
+    });
+});
+
+describe('Unit tests for getUpdatedHtmlLayout', () => {
+    test('Should replace placeholders with blank space', () => {
+        expect(getUpdatedHtmlLayout({
+            layout: html
+        })).toBe(expected);
+    });
+
+    test('Should replace stylesheet placeholder with stylesheet url', () => {
+        let result = getUpdatedHtmlLayout({
+            layout: html,
+            stylesheet: 'https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css'
+        })
+        expect(result.includes(`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" />`)).toBeTruthy();
+    });
+
+    test('Should replace title placeholder with title text', () => {
+        let result = getUpdatedHtmlLayout({
+            layout: html,
+            title: 'Title'
+        })
+        expect(result.includes(`<h1>Title</h1>`)).toBeTruthy();
+    });
+
+    test('Should replace nav placeholder with nav html', () => {
+        let result = getUpdatedHtmlLayout({
+            layout: html,
+            nav: `<div><ul><li><a href='./index.html'>Home</a></li></ul></div>`
+        })
+        expect(result.includes(`<div id="nav"><div><ul><li><a href='./index.html'>Home</a></li></ul></div></div>`)).toBeTruthy();
+    });
+
+    test('Should replace body placeholder with body text', () => {
+        let result = getUpdatedHtmlLayout({
+            layout: html,
+            body: '<p>Body Text</p>'
+        })
+        expect(result.includes(`<body>
+        <div id="nav"> </div>
+        <h1> </h1>
+        <p>Body Text</p>
+    </body>`)).toBeTruthy();
+    });
+
+    test('Should replace lang placeholder with lang', () => {
+        let result = getUpdatedHtmlLayout({
+            layout: html,
+            lang: 'fr-CA'
+        })
+        expect(result.includes(`<html lang="fr-CA">`)).toBeTruthy();
     });
 });

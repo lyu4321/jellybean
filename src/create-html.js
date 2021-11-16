@@ -101,10 +101,10 @@ const getHtmlLayout = () => {
 const getUpdatedHtmlLayout = (html) => {
     let layout = html.layout;
     return layout
-        .replace(/{stylesheet}/g, html.stylesheet)
-        .replace(/{title}/g, html.title)
-        .replace(/{nav}/g, html.nav)
-        .replace(/{body}/g, html.body)
+        .replace(/{stylesheet}/g, html.stylesheet || 'style.css')
+        .replace(/{title}/g, html.title || ' ')
+        .replace(/{nav}/g, html.nav || ' ')
+        .replace(/{body}/g, html.body || ' ')
         .replace('en-CA', html.lang || 'en-CA');
 };
 
@@ -235,4 +235,4 @@ const createIndexPage = (argv, filesArray) => {
     });
 };
 
-module.exports = { setupOutput, getHtmlNav };
+module.exports = { setupOutput, getHtmlLayout, getUpdatedHtmlLayout, getHtmlNav };

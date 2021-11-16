@@ -1,4 +1,8 @@
-const { getHtmlLayout, getUpdatedHtmlLayout, getHtmlNav } = require('./create-html');
+const {
+    getHtmlLayout,
+    getUpdatedHtmlLayout,
+    getHtmlNav,
+} = require('./create-html');
 
 describe('Unit tests for getHtmlNav', () => {
     test('Should create navbar with link to index page (no args)', () => {
@@ -73,52 +77,65 @@ describe('Unit tests for getHtmlLayout', () => {
 
 describe('Unit tests for getUpdatedHtmlLayout', () => {
     test('Should replace placeholders with blank space', () => {
-        expect(getUpdatedHtmlLayout({
-            layout: html
-        })).toBe(expected);
+        expect(
+            getUpdatedHtmlLayout({
+                layout: html,
+            })
+        ).toBe(expected);
     });
 
     test('Should replace stylesheet placeholder with stylesheet url', () => {
         let result = getUpdatedHtmlLayout({
             layout: html,
-            stylesheet: 'https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css'
-        })
-        expect(result.includes(`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" />`)).toBeTruthy();
+            stylesheet:
+                'https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css',
+        });
+        expect(
+            result.includes(
+                `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" />`
+            )
+        ).toBeTruthy();
     });
 
     test('Should replace title placeholder with title text', () => {
         let result = getUpdatedHtmlLayout({
             layout: html,
-            title: 'Title'
-        })
+            title: 'Title',
+        });
         expect(result.includes(`<h1>Title</h1>`)).toBeTruthy();
     });
 
     test('Should replace nav placeholder with nav html', () => {
         let result = getUpdatedHtmlLayout({
             layout: html,
-            nav: `<div><ul><li><a href='./index.html'>Home</a></li></ul></div>`
-        })
-        expect(result.includes(`<div id="nav"><div><ul><li><a href='./index.html'>Home</a></li></ul></div></div>`)).toBeTruthy();
+            nav: `<div><ul><li><a href='./index.html'>Home</a></li></ul></div>`,
+        });
+        expect(
+            result.includes(
+                `<div id="nav"><div><ul><li><a href='./index.html'>Home</a></li></ul></div></div>`
+            )
+        ).toBeTruthy();
     });
 
     test('Should replace body placeholder with body text', () => {
         let result = getUpdatedHtmlLayout({
             layout: html,
-            body: '<p>Body Text</p>'
-        })
-        expect(result.includes(`<body>
+            body: '<p>Body Text</p>',
+        });
+        expect(
+            result.includes(`<body>
         <div id="nav"> </div>
         <h1> </h1>
         <p>Body Text</p>
-    </body>`)).toBeTruthy();
+    </body>`)
+        ).toBeTruthy();
     });
 
     test('Should replace lang placeholder with lang', () => {
         let result = getUpdatedHtmlLayout({
             layout: html,
-            lang: 'fr-CA'
-        })
+            lang: 'fr-CA',
+        });
         expect(result.includes(`<html lang="fr-CA">`)).toBeTruthy();
     });
 });

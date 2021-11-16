@@ -235,4 +235,9 @@ const createIndexPage = (argv, filesArray) => {
     });
 };
 
-module.exports = { setupOutput, getHtmlLayout, getUpdatedHtmlLayout, getHtmlNav };
+module.exports = {
+    setupOutput,
+    getHtmlLayout,
+    getUpdatedHtmlLayout,
+    getHtmlNav,
+};

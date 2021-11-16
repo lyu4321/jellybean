@@ -65,10 +65,7 @@ describe('E2E integration', () => {
     });
 
     test('Generates HTML file when valid input directory path', async () => {
-        const { stderr, stdout, exitCode } = await run(
-            '--input',
-            'test-docs'
-        );
+        const { stderr, stdout, exitCode } = await run('--input', 'test-docs');
         expect(exitCode).toBe(0);
         expect(stdout).toMatchSnapshot();
         expect(stderr).toEqual('');

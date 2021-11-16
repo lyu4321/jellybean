@@ -2,6 +2,7 @@ const {
     getHtmlLayout,
     getUpdatedHtmlLayout,
     getHtmlNav,
+    getHtmlTitleBody,
 } = require('./create-html');
 
 describe('Unit tests for getHtmlNav', () => {
@@ -137,5 +138,38 @@ describe('Unit tests for getUpdatedHtmlLayout', () => {
             lang: 'fr-CA',
         });
         expect(result.includes(`<html lang="fr-CA">`)).toBeTruthy();
+    });
+});
+
+describe('Unit tests for getHtmlTitleBody', () => {
+    test('Should return an object of title and body for text file with title', () => {
+        const txtFile = `Sample Title\n\n\nThis is a sample text file.`;
+
+        const expected = {
+            title: 'Sample Title',
+            body:
+                '<h1>Sample Title</h1>\n' +
+                '<p> This is a sample text file.</p>\n',
+        };
+        expect(getHtmlTitleBody(txtFile, true)).toEqual(expected);
+    });
+
+    test('Should return an object of empty title and body for text file with no title', () => {
+        const txtFile = `This is a sample text file.`;
+
+        const expected = {
+            title: '',
+            body: '<p>This is a sample text file.</p>\n',
+        };
+        expect(getHtmlTitleBody(txtFile, true)).toEqual(expected);
+    });
+
+    test('Should return an object containing empty title and body for markdown file', () => {
+        const mdFile = `# This is a heading`;
+        const expected = {
+            title: '',
+            body: '<h1>This is a heading</h1>\n',
+        };
+        expect(getHtmlTitleBody(mdFile, false)).toEqual(expected);
     });
 });

@@ -240,4 +240,5 @@ module.exports = {
     getHtmlLayout,
     getUpdatedHtmlLayout,
     getHtmlNav,
+    getHtmlTitleBody,
 };

@@ -1,13 +1,13 @@
 # Jellybean
 
-From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.
+From one small program, you can create an entire website. Jellybean is a static site generator created in JavaScript and Node.js that lets you easily convert your text/markdown files into HTML.
 
 # Main Features
 
 1. A single text/markdown file or folder containing multiple files can be converted into HTML files.
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
-3. Generated files are stored in the 'dist' folder and style is provided by 'style.css'. The default language is set to 'en-CA'. Custom folders, styles, and languages can be specified using [optional flags](https://github.com/lyu4321/jellybean#optional-flags).
-4. Markdown files will be parsed for [markdown syntax](https://github.com/lyu4321/jellybean#additional-support-for-markdown-files) in order to generate the proper HTML.
+3. Generated files are stored in a ***dist*** folder and style is provided by a ***style.css*** file. The default language is set to ***en-CA***. Custom folders, styles, and languages can be specified using [optional flags](#optional-flags).
+4. Markdown files will be parsed for [markdown syntax](#markdown-files) in order to generate the proper HTML.
 
 # Installation
 
@@ -36,9 +36,9 @@ jellybean -i <folder>
 
 The input path to either an existing text/markdown file or a folder containing multiple files is required. Please specify the input path using the `--input/-i` flag or by adding it as `"input"` in a JSON config file.
 
-The contents of each file will be converted into an HTML file with the same name and stored in the output directory specified or in the 'dist' directory if no output directory is specified. If a folder contains non-text/markdown files, these files will not be converted into HTML.
+The contents of each file will be converted into an HTML file with the same name and stored in the output directory specified or in the ***dist*** directory if no output directory is specified. If a folder contains non-text/markdown files, these files will not be converted into HTML.
 
-# Optional Flags
+<h1><a name="optional-flags">Optional Flags</a></h1>
 
 | Flag                    | Description                                                                                                       |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -48,7 +48,7 @@ The contents of each file will be converted into an HTML file with the same name
 
 # JSON Config File
 
-Instead of passing options through the command line, a path to a JSON config file can be provided. This JSON file needs to contain at least "input" with the path to the file or folder.
+Instead of passing options through the command line, a path to a JSON config file can be provided. This JSON file needs to contain at least `"input"` with the path to the file or folder.
 
 | Flag                      | Description                                   |
 | ------------------------- | --------------------------------------------- |
@@ -166,7 +166,7 @@ In the dist folder, the following files will be generated:
 -   style.css
 -   The Adventure of the Six Napoleons.html
 
-# Additional Support for Markdown Files
+<h1><a name="#markdown-files">Additional Support for Markdown Files</a></h1>
 
 For markdown files (.md), the program will parse markdown to HTML tags. Full markdown support is provided through [markdown-it](https://markdown-it.github.io/).
 

@@ -1,7 +1,14 @@
 {
   "name": "jellybean",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.7",
+  "description": "From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.",
+  "main": "src/index.js",
+  "bin": {
+    "jellybean": "src/index.js"
+  },
+  "keywords": [
+    "ssg"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch --",
@@ -27,5 +34,16 @@
     "husky": "^7.0.4",
     "jest": "^27.3.1",
     "prettier": "2.4.1"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lyu4321/jellybean.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lyu4321/jellybean/issues"
+  },
+  "homepage": "https://github.com/lyu4321/jellybean#readme"
 }

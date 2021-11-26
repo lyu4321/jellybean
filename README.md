@@ -11,13 +11,11 @@ From one small program, you can create an entire website. Jellybean is a static 
 
 # Installation
 
-1. Clone this repository
-2. Download [Node.js](https://nodejs.org/en/) (version 14+)
-3. Run the following commands
+1. Download [Node.js](https://nodejs.org/en/) (version 14+)
+2. Run the following command
 
 ```diff
-cd jellybean
-npm install
+npm install -g jellybean
 ```
 
 # Running the Program
@@ -25,15 +23,15 @@ npm install
 Path to an existing text/markdown file
 
 ```diff
-node src/index.js --input <file>
-node src/index.js -i <file>
+jellybean --input <file>
+jellybean -i <file>
 ```
 
 Path to an existing folder containing multiple files
 
 ```diff
-node src/index.js --input <folder>
-node src/index.js -i <folder>
+jellybean --input <folder>
+jellybean -i <folder>
 ```
 
 The input path to either an existing text/markdown file or a folder containing multiple files is required. Please specify the input path using the `--input/-i` flag or by adding it as `"input"` in a JSON config file.
@@ -69,21 +67,21 @@ Example JSON file
 # Getting Help
 
 ```diff
-node src/index.js --help
-node src/index.js -h
+jellybean --help
+jellybean -h
 ```
 
 # Getting the Version
 
 ```diff
-node src/index.js --version
-node src/index.js -v
+jellybean --version
+jellybean -v
 ```
 
 # Example Using a File
 
 ```diff
-node src/index.js -i Sherlock-Holmes-Selected-Stories/The Adventure of the Six Napoleans.txt -l en-US -o customoutput -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css
+jellybean -i Sherlock-Holmes-Selected-Stories/The Adventure of the Six Napoleans.txt -l en-US -o customoutput -s https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css
 ```
 
 Original File:
@@ -155,24 +153,11 @@ customoutput/The Adventure of the Six Napoleans.html
 node src/index.js -i Sherlock-Holmes-Selected-Stories
 ```
 
-<<<<<<< HEAD
-In the Sherlock-Holmes-Selected-Stories folder, if you have the files:<br/>
+In the Sherlock-Holmes-Selected-Stories folder, if you have the files:
 
 -   notatextfile.js
 -   Silver Blaze.txt
--   The Adventure of the Six Napoleans.txt<br/>
-
-In the dist folder, the following files will be generated:<br/>
-
--   index.html
--   Silver Blaze.html
--   style.css
--   # The Adventure of the Six Napoleons.html
-    In the Sherlock-Holmes-Selected-Stories folder, if you have the files:
-
-*   notatextfile.js
-*   Silver Blaze.txt
-*   The Adventure of the Six Napoleans.txt
+-   The Adventure of the Six Napoleans.txt
 
 In the dist folder, the following files will be generated:
 
@@ -180,7 +165,6 @@ In the dist folder, the following files will be generated:
 -   Silver Blaze.html
 -   style.css
 -   The Adventure of the Six Napoleons.html
-    > > > > > > > b1aa2de465c9edcd21ef08ba4dbf22552abd8b75
 
 # Additional Support for Markdown Files
 
@@ -212,7 +196,7 @@ README Excerpt.html
     <head>
         <link rel="stylesheet" href="style.css" />
         <meta charset="utf-8" />
-        <title></title>
+        <title> </title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
 
@@ -221,7 +205,7 @@ README Excerpt.html
             <div>
                 <ul>
                     <li><a href="./index.html">Home</a></li>
-                    <li><a href="./README Excerpt.html">README Excerpt</a></li>
+                    <li><a href="./test.html">test</a></li>
                 </ul>
             </div>
         </div>

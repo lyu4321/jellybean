@@ -29,4 +29,4 @@ exports[`E2E integration Prints help message when --help flag used 1`] = `
   -v, --version     Show version number                                [boolean]"
 `;
 
-exports[`E2E integration Prints version when --version flag used 1`] = `"jellybean 1.0.0"`;
+exports[`E2E integration Prints version when --version flag used 1`] = `"jellybean 1.0.7"`;

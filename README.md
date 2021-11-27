@@ -6,7 +6,7 @@ From one small program, you can create an entire website. Jellybean is a static 
 
 1. A single text/markdown file or folder containing multiple files can be converted into HTML files.
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
-3. Generated files are stored in a ***dist*** folder and style is provided by a ***style.css*** file. The default language is set to ***en-CA***. Custom folders, styles, and languages can be specified using [optional flags](#optional-flags).
+3. Generated files are stored in a **_dist_** folder and style is provided by a **_style.css_** file. The default language is set to **_en-CA_**. Custom folders, styles, and languages can be specified using [optional flags](#optional-flags).
 4. Markdown files will be parsed for [markdown syntax](#markdown-files) in order to generate the proper HTML.
 
 # Installation
@@ -36,7 +36,7 @@ jellybean -i <folder>
 
 The input path to either an existing text/markdown file or a folder containing multiple files is required. Please specify the input path using the `--input/-i` flag or by adding it as `"input"` in a JSON config file.
 
-The contents of each file will be converted into an HTML file with the same name and stored in the output directory specified or in the ***dist*** directory if no output directory is specified. If a folder contains non-text/markdown files, these files will not be converted into HTML.
+The contents of each file will be converted into an HTML file with the same name and stored in the output directory specified or in the **_dist_** directory if no output directory is specified. If a folder contains non-text/markdown files, these files will not be converted into HTML.
 
 <h1><a name="optional-flags">Optional Flags</a></h1>
 

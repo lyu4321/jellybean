@@ -57,7 +57,7 @@ const setupOutput = (argv, filesArray) => {
 
     // Create style.css in output directory (if no custom stylesheet)
     if (argv.stylesheet == 'style.css') {
-        let style = fs.readFileSync('src/' + argv.stylesheet, 'utf8');
+        let style = fs.readFileSync(path.resolve(__dirname, '../src/style.css'), 'utf8');
         fs.writeFile(
             `${argv.output}/${argv.stylesheet}`,
             style,
@@ -90,7 +90,7 @@ const createDirectory = (directory) => {
  * @return {string} => return the file contents as a string
  */
 const getHtmlLayout = () => {
-    return fs.readFileSync('src/layout.html', 'utf8');
+    return fs.readFileSync(path.resolve(__dirname, '../src/layout.html'), 'utf8');
 };
 
 /**

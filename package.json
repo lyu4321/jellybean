@@ -1,6 +1,6 @@
 {
   "name": "jellybean",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "From one small program, you can create an entire website. Jellybean is a static site generator created in Node.js that lets you easily convert your text/markdown files into HTML.",
   "main": "src/index.js",
   "bin": {

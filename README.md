@@ -6,8 +6,8 @@ From one small program, you can create an entire website. Jellybean is a static 
 
 1. A single text/markdown file or folder containing multiple files can be converted into HTML files.
 2. The title of the page, which is the first line of a file if followed by two blank lines, will be automatically generated.
-3. Generated files are stored in a **_dist_** folder and style is provided by a **_style.css_** file. The default language is set to **_en-CA_**. Custom folders, styles, and languages can be specified using [optional flags](#optional-flags).
-4. Markdown files will be parsed for [markdown syntax](#markdown-files) in order to generate the proper HTML.
+3. Generated files are stored in a **_dist_** folder and style is provided by a **_style.css_** file. The default language is set to **_en-CA_**. Custom folders, styles, and languages can be specified using optional flags.
+4. Markdown files will be parsed for markdown syntax in order to generate the proper HTML.
 
 # Installation
 
@@ -38,7 +38,7 @@ The input path to either an existing text/markdown file or a folder containing m
 
 The contents of each file will be converted into an HTML file with the same name and stored in the output directory specified or in the **_dist_** directory if no output directory is specified. If a folder contains non-text/markdown files, these files will not be converted into HTML.
 
-<h1><a name="optional-flags">Optional Flags</a></h1>
+# Optional Flags
 
 | Flag                    | Description                                                                                                       |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -166,7 +166,7 @@ In the dist folder, the following files will be generated:
 -   style.css
 -   The Adventure of the Six Napoleons.html
 
-<h1><a name="markdown-files">Additional Support for Markdown Files</a></h1>
+# Additional Support for Markdown Files
 
 For markdown files (.md), the program will parse markdown to HTML tags. Full markdown support is provided through [markdown-it](https://markdown-it.github.io/).
 
